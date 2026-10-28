@@ -1,0 +1,1118 @@
+{
+  "artwork": {
+    "1f44d/activate_animation": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 2.083333,
+      "first": [
+        83,
+        63,
+        429,
+        449
+      ],
+      "fr": 60,
+      "ip": 0,
+      "last": [
+        83,
+        63,
+        429,
+        449
+      ],
+      "middle": [
+        83,
+        63,
+        429,
+        450
+      ],
+      "op": 125,
+      "peak_area_frame": 33,
+      "peak_area_pixels": 83332,
+      "sha256": "23a5b5b2c71156f03726fc667e7e6bea23065575c420eb8ccbb7afef929a9f1a",
+      "union": [
+        82,
+        57,
+        442,
+        470
+      ],
+      "visible_frames": [
+        0,
+        124
+      ]
+    },
+    "1f44d/appear_animation": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 0.716667,
+      "first": null,
+      "fr": 60,
+      "ip": 0,
+      "last": [
+        83,
+        63,
+        429,
+        449
+      ],
+      "middle": [
+        80,
+        60,
+        432,
+        452
+      ],
+      "op": 43,
+      "peak_area_frame": 12,
+      "peak_area_pixels": 91471,
+      "sha256": "a4d9d832b8fa3b312c5ea8d6ffbbc5b048f40517cec333314897befcaab26811",
+      "union": [
+        72,
+        51,
+        440,
+        461
+      ],
+      "visible_frames": [
+        1,
+        42
+      ]
+    },
+    "1f44d/around_animation": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 1.5,
+      "first": null,
+      "fr": 60,
+      "ip": 0,
+      "last": null,
+      "middle": [
+        25,
+        40,
+        477,
+        482
+      ],
+      "op": 90,
+      "peak_area_frame": 21,
+      "peak_area_pixels": 9909,
+      "sha256": "0e314302a50fb2f4f56ed56d7e95048f1d6f0ecc3108433043bc2614160c5f36",
+      "union": [
+        13,
+        28,
+        489,
+        495
+      ],
+      "visible_frames": [
+        4,
+        83
+      ]
+    },
+    "1f44d/center_icon": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 1.5,
+      "first": [
+        160,
+        149,
+        352,
+        363
+      ],
+      "fr": 60,
+      "ip": 0,
+      "last": [
+        160,
+        149,
+        352,
+        363
+      ],
+      "middle": [
+        160,
+        149,
+        352,
+        363
+      ],
+      "op": 90,
+      "peak_area_frame": 12,
+      "peak_area_pixels": 28880,
+      "sha256": "6ec796e58e917d8d0d2205b5d48a02a7dc35c99799e548d50b1cfd769401f6a0",
+      "union": [
+        153,
+        141,
+        359,
+        371
+      ],
+      "visible_frames": [
+        0,
+        89
+      ]
+    },
+    "1f44d/effect_animation": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 1.5,
+      "first": null,
+      "fr": 60,
+      "ip": 0,
+      "last": null,
+      "middle": [
+        108,
+        56,
+        360,
+        432
+      ],
+      "op": 90,
+      "peak_area_frame": 21,
+      "peak_area_pixels": 13112,
+      "sha256": "d80568b9f179c5120adffa07ed35841ade38522dc5df644e097e7bbaee524368",
+      "union": [
+        87,
+        48,
+        394,
+        438
+      ],
+      "visible_frames": [
+        4,
+        83
+      ]
+    },
+    "1f44d/select_animation": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 2.016667,
+      "first": [
+        83,
+        63,
+        429,
+        449
+      ],
+      "fr": 60,
+      "ip": 0,
+      "last": [
+        83,
+        63,
+        429,
+        449
+      ],
+      "middle": [
+        83,
+        63,
+        430,
+        450
+      ],
+      "op": 121,
+      "peak_area_frame": 33,
+      "peak_area_pixels": 83332,
+      "sha256": "1f7b47e5f5655609a05dd9f3b7208fbc72ea9fbbb9d3833c89dc3d73a929e734",
+      "union": [
+        82,
+        57,
+        442,
+        470
+      ],
+      "visible_frames": [
+        0,
+        120
+      ]
+    },
+    "1f44e/activate_animation": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 2.083333,
+      "first": [
+        83,
+        63,
+        429,
+        449
+      ],
+      "fr": 60,
+      "ip": 0,
+      "last": [
+        83,
+        63,
+        429,
+        449
+      ],
+      "middle": [
+        83,
+        61,
+        430,
+        448
+      ],
+      "op": 125,
+      "peak_area_frame": 33,
+      "peak_area_pixels": 83320,
+      "sha256": "720a9b595d13eeb37452078cf734432f3db7d7a78cfb09080402603c377d57c2",
+      "union": [
+        83,
+        39,
+        442,
+        455
+      ],
+      "visible_frames": [
+        0,
+        124
+      ]
+    },
+    "1f44e/appear_animation": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 0.716667,
+      "first": null,
+      "fr": 60,
+      "ip": 0,
+      "last": [
+        83,
+        63,
+        429,
+        449
+      ],
+      "middle": [
+        80,
+        60,
+        432,
+        452
+      ],
+      "op": 43,
+      "peak_area_frame": 12,
+      "peak_area_pixels": 91461,
+      "sha256": "39bed43779521c56b6accfb635adc1c77e82fc75aff93300a684661f48938105",
+      "union": [
+        72,
+        51,
+        440,
+        461
+      ],
+      "visible_frames": [
+        1,
+        42
+      ]
+    },
+    "1f44e/around_animation": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 1.5,
+      "first": null,
+      "fr": 60,
+      "ip": 0,
+      "last": null,
+      "middle": [
+        25,
+        40,
+        477,
+        482
+      ],
+      "op": 90,
+      "peak_area_frame": 21,
+      "peak_area_pixels": 9909,
+      "sha256": "0e314302a50fb2f4f56ed56d7e95048f1d6f0ecc3108433043bc2614160c5f36",
+      "union": [
+        13,
+        28,
+        489,
+        495
+      ],
+      "visible_frames": [
+        4,
+        83
+      ]
+    },
+    "1f44e/center_icon": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 1.5,
+      "first": [
+        160,
+        149,
+        352,
+        363
+      ],
+      "fr": 60,
+      "ip": 0,
+      "last": [
+        160,
+        149,
+        352,
+        363
+      ],
+      "middle": [
+        160,
+        149,
+        352,
+        363
+      ],
+      "op": 90,
+      "peak_area_frame": 12,
+      "peak_area_pixels": 28877,
+      "sha256": "af633480b89529473a8480da361af7f71bd5c2d2188b2e28023f4ec5fd1830c6",
+      "union": [
+        153,
+        141,
+        359,
+        371
+      ],
+      "visible_frames": [
+        0,
+        89
+      ]
+    },
+    "1f44e/effect_animation": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 1.5,
+      "first": null,
+      "fr": 60,
+      "ip": 0,
+      "last": null,
+      "middle": [
+        108,
+        56,
+        360,
+        432
+      ],
+      "op": 90,
+      "peak_area_frame": 21,
+      "peak_area_pixels": 13112,
+      "sha256": "d80568b9f179c5120adffa07ed35841ade38522dc5df644e097e7bbaee524368",
+      "union": [
+        87,
+        48,
+        394,
+        438
+      ],
+      "visible_frames": [
+        4,
+        83
+      ]
+    },
+    "1f44e/select_animation": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 2.016667,
+      "first": [
+        83,
+        63,
+        429,
+        449
+      ],
+      "fr": 60,
+      "ip": 0,
+      "last": [
+        83,
+        63,
+        429,
+        449
+      ],
+      "middle": [
+        83,
+        61,
+        430,
+        448
+      ],
+      "op": 121,
+      "peak_area_frame": 33,
+      "peak_area_pixels": 83320,
+      "sha256": "aa861b1932687a69578f689593007b81e5ee0c072947d7c9834af8996e4c1068",
+      "union": [
+        83,
+        39,
+        442,
+        455
+      ],
+      "visible_frames": [
+        0,
+        120
+      ]
+    },
+    "2764/activate_animation": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 2.083333,
+      "first": [
+        63,
+        80,
+        449,
+        433
+      ],
+      "fr": 60,
+      "ip": 0,
+      "last": [
+        63,
+        80,
+        449,
+        433
+      ],
+      "middle": [
+        42,
+        43,
+        471,
+        433
+      ],
+      "op": 125,
+      "peak_area_frame": 29,
+      "peak_area_pixels": 133591,
+      "sha256": "c2de84870b718a39098289b94cb8bea8f118df0fe93f8eca391b72b0a087665f",
+      "union": [
+        31,
+        30,
+        483,
+        451
+      ],
+      "visible_frames": [
+        0,
+        124
+      ]
+    },
+    "2764/appear_animation": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 0.716667,
+      "first": null,
+      "fr": 60,
+      "ip": 0,
+      "last": [
+        63,
+        80,
+        449,
+        433
+      ],
+      "middle": [
+        60,
+        77,
+        452,
+        435
+      ],
+      "op": 43,
+      "peak_area_frame": 12,
+      "peak_area_pixels": 105397,
+      "sha256": "6cef0d27076b836eabbbec0e4e0948ced35ad8e2d921af24469675933ed1eb0f",
+      "union": [
+        51,
+        69,
+        461,
+        443
+      ],
+      "visible_frames": [
+        1,
+        42
+      ]
+    },
+    "2764/around_animation": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 1.5,
+      "first": null,
+      "fr": 60,
+      "ip": 0,
+      "last": null,
+      "middle": [
+        25,
+        40,
+        477,
+        482
+      ],
+      "op": 90,
+      "peak_area_frame": 21,
+      "peak_area_pixels": 9909,
+      "sha256": "e4a4ad9cfe401ba7c7dea6bcc19c5154e749b6c79d9b6679c8da065db63ee5b4",
+      "union": [
+        13,
+        28,
+        489,
+        495
+      ],
+      "visible_frames": [
+        4,
+        83
+      ]
+    },
+    "2764/center_icon": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 1.5,
+      "first": [
+        150,
+        159,
+        363,
+        353
+      ],
+      "fr": 60,
+      "ip": 0,
+      "last": [
+        150,
+        159,
+        363,
+        353
+      ],
+      "middle": [
+        150,
+        159,
+        363,
+        353
+      ],
+      "op": 90,
+      "peak_area_frame": 12,
+      "peak_area_pixels": 33268,
+      "sha256": "5c5c5f324060109ea799e72109a4da9c7b01e9b459fcabeeb85d33151b3d8e6e",
+      "union": [
+        141,
+        151,
+        371,
+        361
+      ],
+      "visible_frames": [
+        0,
+        89
+      ]
+    },
+    "2764/effect_animation": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 1.5,
+      "first": null,
+      "fr": 60,
+      "ip": 0,
+      "last": null,
+      "middle": [
+        108,
+        56,
+        360,
+        432
+      ],
+      "op": 90,
+      "peak_area_frame": 21,
+      "peak_area_pixels": 13112,
+      "sha256": "1db1846699f70d7fd2fc508b50e649b7f0847d0f9566c25d8d6134600a84ce3d",
+      "union": [
+        87,
+        48,
+        394,
+        438
+      ],
+      "visible_frames": [
+        4,
+        83
+      ]
+    },
+    "2764/select_animation": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 2.016667,
+      "first": [
+        63,
+        80,
+        449,
+        433
+      ],
+      "fr": 60,
+      "ip": 0,
+      "last": [
+        63,
+        80,
+        449,
+        433
+      ],
+      "middle": [
+        44,
+        46,
+        469,
+        431
+      ],
+      "op": 121,
+      "peak_area_frame": 29,
+      "peak_area_pixels": 133591,
+      "sha256": "7f6b7e0ba1ad06a24b7a48f2b8d3f2d7496e3a33620992401a1417a365956e8b",
+      "union": [
+        31,
+        30,
+        483,
+        451
+      ],
+      "visible_frames": [
+        0,
+        120
+      ]
+    },
+    "ios/star_reaction_activate": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 2.083333,
+      "file": "star_reaction_activate.tgs",
+      "first": [
+        62,
+        71,
+        450,
+        447
+      ],
+      "fr": 60,
+      "ip": 0,
+      "last": [
+        62,
+        71,
+        450,
+        447
+      ],
+      "middle": [
+        32,
+        33,
+        483,
+        459
+      ],
+      "op": 125,
+      "peak_area_frame": 76,
+      "peak_area_pixels": 128894,
+      "sha256": "aa525fd4753288b85dce7001172847af61abdb332ca96c3d072bde830552e83d",
+      "union": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "visible_frames": [
+        0,
+        124
+      ]
+    },
+    "ios/star_reaction_appear": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 0.766667,
+      "file": "star_reaction_appear.tgs",
+      "first": null,
+      "fr": 60,
+      "ip": 0,
+      "last": [
+        62,
+        71,
+        450,
+        447
+      ],
+      "middle": [
+        71,
+        124,
+        427,
+        467
+      ],
+      "op": 46,
+      "peak_area_frame": 27,
+      "peak_area_pixels": 79838,
+      "sha256": "28e2a4a6ec716e724bf8ba36937349abaebadd7a21e8623d705082be04070913",
+      "union": [
+        11,
+        56,
+        499,
+        489
+      ],
+      "visible_frames": [
+        1,
+        45
+      ]
+    },
+    "ios/star_reaction_center": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 2.083333,
+      "file": "star_reaction_center.tgs",
+      "first": [
+        62,
+        71,
+        450,
+        447
+      ],
+      "fr": 60,
+      "ip": 0,
+      "last": [
+        62,
+        71,
+        450,
+        447
+      ],
+      "middle": [
+        32,
+        33,
+        483,
+        459
+      ],
+      "op": 125,
+      "peak_area_frame": 76,
+      "peak_area_pixels": 128894,
+      "sha256": "aa525fd4753288b85dce7001172847af61abdb332ca96c3d072bde830552e83d",
+      "union": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "visible_frames": [
+        0,
+        124
+      ]
+    },
+    "ios/star_reaction_effect": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 1.5,
+      "file": "star_reaction_effect.tgs",
+      "first": null,
+      "fr": 60,
+      "ip": 0,
+      "last": null,
+      "middle": [
+        27,
+        43,
+        458,
+        477
+      ],
+      "op": 90,
+      "peak_area_frame": 48,
+      "peak_area_pixels": 28505,
+      "sha256": "a8bf6858d700cfc6989f2e3c009c3c4fd03f64f1a3245ea8690c8df909cc9605",
+      "union": [
+        8,
+        21,
+        471,
+        500
+      ],
+      "visible_frames": [
+        1,
+        81
+      ]
+    },
+    "ios/star_reaction_select": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 2.083333,
+      "file": "star_reaction_select.tgs",
+      "first": [
+        62,
+        71,
+        450,
+        447
+      ],
+      "fr": 60,
+      "ip": 0,
+      "last": [
+        62,
+        71,
+        450,
+        447
+      ],
+      "middle": [
+        32,
+        33,
+        483,
+        459
+      ],
+      "op": 125,
+      "peak_area_frame": 76,
+      "peak_area_pixels": 128894,
+      "sha256": "aa525fd4753288b85dce7001172847af61abdb332ca96c3d072bde830552e83d",
+      "union": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "visible_frames": [
+        0,
+        124
+      ]
+    },
+    "ios/static_icon": {
+      "bbox": [
+        8,
+        10,
+        64,
+        63
+      ],
+      "canvas": [
+        72,
+        72
+      ],
+      "file": "star_reaction_static_icon.webp",
+      "format": "WEBP",
+      "sha256": "80c85c8816ae1b76d98de3b72b4413ca112e64c9a92bb4365b0e077d241007f7",
+      "size": 2850
+    },
+    "tweb/ReactionGeneric": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 1.483333,
+      "file": "ReactionGeneric.json",
+      "first": null,
+      "fr": 60,
+      "ip": 2,
+      "last": null,
+      "middle": null,
+      "op": 91,
+      "peak_area_frame": 0,
+      "peak_area_pixels": 0,
+      "sha256": "4d71701133d77e724fa0c04b679f231a820a46dda883e5fe9fc262d6fbfc4401",
+      "union": null,
+      "visible_frames": null
+    },
+    "tweb/StarReaction": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 2.083333,
+      "file": "StarReaction.json",
+      "first": [
+        62,
+        71,
+        450,
+        447
+      ],
+      "fr": 60,
+      "ip": 0,
+      "last": [
+        62,
+        71,
+        450,
+        447
+      ],
+      "middle": [
+        32,
+        33,
+        483,
+        459
+      ],
+      "op": 125,
+      "peak_area_frame": 76,
+      "peak_area_pixels": 128894,
+      "sha256": "38044d8da2a927d48f45054296c35cedf14aa3ce3aa08bfc3d4af07b77408860",
+      "union": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "visible_frames": [
+        0,
+        124
+      ]
+    },
+    "tweb/StarReactionAppear": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 0.716667,
+      "file": "StarReactionAppear.json",
+      "first": null,
+      "fr": 60,
+      "ip": 0,
+      "last": [
+        63,
+        72,
+        449,
+        446
+      ],
+      "middle": [
+        28,
+        45,
+        439,
+        474
+      ],
+      "op": 43,
+      "peak_area_frame": 31,
+      "peak_area_pixels": 76057,
+      "sha256": "aa2bc8169ddf91dc099df500456f5bec057abb36b4b50d03b1c49624c21ddac2",
+      "union": [
+        10,
+        16,
+        494,
+        477
+      ],
+      "visible_frames": [
+        1,
+        42
+      ]
+    },
+    "tweb/StarReactionEffect1": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 1.5,
+      "file": "StarReactionEffect1.json",
+      "first": null,
+      "fr": 60,
+      "ip": 60,
+      "last": null,
+      "middle": [
+        47,
+        32,
+        465,
+        449
+      ],
+      "op": 150,
+      "peak_area_frame": 21,
+      "peak_area_pixels": 118333,
+      "sha256": "1641763d467ae195ff0c88cdecb42e00990a7fa9424d39422978f62076f398fd",
+      "union": [
+        8,
+        0,
+        511,
+        512
+      ],
+      "visible_frames": [
+        1,
+        88
+      ]
+    },
+    "tweb/StarReactionEffect2": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 1.383333,
+      "file": "StarReactionEffect2.json",
+      "first": null,
+      "fr": 60,
+      "ip": 0,
+      "last": null,
+      "middle": [
+        19,
+        31,
+        488,
+        496
+      ],
+      "op": 83,
+      "peak_area_frame": 47,
+      "peak_area_pixels": 70707,
+      "sha256": "d5fa97b1e667678a4918d36111de9c66fe1493d1a72372db852bd2a916ae3e8d",
+      "union": [
+        12,
+        8,
+        511,
+        502
+      ],
+      "visible_frames": [
+        3,
+        78
+      ]
+    },
+    "tweb/StarReactionEffect3": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 1.416667,
+      "file": "StarReactionEffect3.json",
+      "first": null,
+      "fr": 60,
+      "ip": 9,
+      "last": null,
+      "middle": [
+        17,
+        2,
+        507,
+        501
+      ],
+      "op": 94,
+      "peak_area_frame": 18,
+      "peak_area_pixels": 202383,
+      "sha256": "78967ff7e003d2ac9d0e05d35d6e2c04fac812048496520aa1fef3e154ce4811",
+      "union": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "visible_frames": [
+        1,
+        83
+      ]
+    },
+    "tweb/StarReactionSelect": {
+      "canvas": [
+        512,
+        512
+      ],
+      "duration": 2.016667,
+      "file": "StarReactionSelect.json",
+      "first": [
+        63,
+        72,
+        449,
+        446
+      ],
+      "fr": 60,
+      "ip": 0,
+      "last": [
+        63,
+        72,
+        449,
+        446
+      ],
+      "middle": [
+        3,
+        24,
+        509,
+        458
+      ],
+      "op": 121,
+      "peak_area_frame": 36,
+      "peak_area_pixels": 111459,
+      "sha256": "b9a4d5851757807b65128192946a523d1ca2df10f017300cd16990dc7ae1b806",
+      "union": [
+        3,
+        8,
+        509,
+        499
+      ],
+      "visible_frames": [
+        0,
+        120
+      ]
+    }
+  },
+  "frame_index": "relative to ip; alpha > 0; bbox right/bottom exclusive; rendered at 512",
+  "library_sha256": "6e2dec996e9c36177c6ecc634e8f8a375b3018b67d63fdb26e63acb6d3c07d2a",
+  "renderer": "Renderer",
+  "star_appear_select_exact_handoff": true
+}

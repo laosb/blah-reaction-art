@@ -1,0 +1,4 @@
+-r requirements.txt
+# Optional: execute the actual tweb WASM renderer without a browser.
+wasmtime==38.0.0
+importlib_resources==7.1.0

@@ -1,0 +1,40 @@
+{
+  "note": "Read-only local checkout evidence; working trees may differ from HEAD. Paths below are relative to each checkout. Not build dependencies.",
+  "retrieved_at": "2026-10-28",
+  "trees": {
+    "ios": {
+      "files": {
+        "submodules/Components/ReactionButtonListComponent/Sources/ReactionButtonListComponent.swift": "a8cdbc529381fb73882c52d211e92abddaf9cbbda8c94d69a4896bbdcf4a78fd",
+        "submodules/LottieBinding/Sources/MakeLottieInstance.swift": "60350a50955a169f3246caea591cbeca44174627482a8a545d9b01f91cfb860a",
+        "submodules/ReactionSelectionNode/Sources/ReactionContextNode.swift": "004bfe7d78fcafa5033b0e37e0ed894c55fd9cd9d254878f0f0f3a757486b6b2",
+        "submodules/ReactionSelectionNode/Sources/ReactionSelectionNode.swift": "dd095cbc5726c545132b825c69b184f380d143532c7467b7e76bcba57949a653",
+        "submodules/TelegramCore/Sources/State/AvailableReactions.swift": "6eab6277ecf174c4f2f5d5e61f27810fc4056988958aad44e5ae76301bab7d7d",
+        "submodules/rlottie/rlottie/src/lottie/lottieitem.cpp": "7138526368dd9f4264eb0c30eb8a572426d2d1b8cd7c85cbb22e61ad90e557bd",
+        "submodules/rlottie/rlottie/src/lottie/lottieparser.cpp": "50539315878d82907fff14249acff4827b363ec51007cac64037e9a5e44ae7f0"
+      },
+      "head": "bd7c906ded66752ee9c6af1b7460e00195b5d07c"
+    },
+    "tdlib": {
+      "files": {
+        "td/telegram/ReactionManager.cpp": "854bf618a7d63415562282f8b0dd51b371ce861e6f39dd76cc18826b79caf571",
+        "td/telegram/StickerFormat.cpp": "52d52f23440e0c25eed2dca0c207256bdc728da92b379828e096877ad4a78a08",
+        "td/telegram/StickersManager.cpp": "2ad67f05defdf5a25374e3bf4fbecfd1a4d01ec0e7bda1c375a03e42c873b5c2"
+      },
+      "head": "8806baf2fc068cd5e8b7bb172df2dc7d18d42344"
+    },
+    "tweb": {
+      "files": {
+        "src/components/chat/reaction.ts": "9194d9821377748ca3509715090c6581a1bb381b6525b5b85eeafa7ccd768da7",
+        "src/components/chat/reactionsMenu.ts": "cf288ea2812fa3ae73677b4cee28b27b0ed7a0cc3105381d8eaa7c67ee18a563",
+        "src/components/wrappers/sticker.ts": "7333420aec8d8b0cdaeee5e0acf5d0dfda597562dd61a24fdec30683ba701cf6",
+        "src/components/wrappers/stickerAnimation.ts": "7862a2effd1285c623068c2fec6b0bd08bc7c49d876b908a150769272fcf9b51",
+        "src/lib/customEmoji/renderer.ts": "ac704e301f16ff1239beb8c99fb770ccc9a56c90576515901f0bee428d18dda3",
+        "src/lib/lottie/lottieLoader.ts": "a1d1d7ea2b54e363b0ab5dbd8ace407acc19130d98b3c637aa354cb3d489541d",
+        "src/lib/lottie/lottiePlayer.ts": "979e5e2360fe8f6fae2e0558096f886cc8e1269e16df7b7e128503a2d2c0a853",
+        "src/scss/partials/_reaction.scss": "3782e79b4e2c08984ec62b120b8f482c432365bb306ea57b2a749626a61404b3",
+        "src/vendor/tlottie/tlottie.wasm": "2f3be462e448170ddf3682a0af40f527c45f03a2e3d566728001dc8909342534"
+      },
+      "head": "1431711143be5f5e17b7aa1ff14b54c8a2f48d97"
+    }
+  }
+}

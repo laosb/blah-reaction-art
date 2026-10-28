@@ -1,0 +1,25 @@
+Noto Animated Emoji — Google
+https://googlefonts.github.io/noto-emoji-animation/
+
+The artwork in sources/ is Google's Noto Animated Emoji, provided under
+Creative Commons Attribution 4.0 International (CC BY 4.0).
+https://creativecommons.org/licenses/by/4.0/
+The full license, including its warranty disclaimer, is in LICENSE-artwork.
+Original download URLs, retrieval dates and SHA-256 hashes: sources/manifest.json.
+
+Adapted for Blah default reactions by blah-reaction-art contributors (2026).
+Changes: normalized and centered on 512 x 512 canvases; retimed motion; extracted
+resting poses; added entrance scaling/fades, activation rotation and center
+pulse; added separate palette-derived circle/diamond particle effects;
+removed exporter metadata and redundant defaults; retained alpha track mattes;
+encoded as deterministic gzip TGS and lossless transparent WebP.
+The resulting reactions/ artwork and these artwork contributions are also
+provided under CC BY 4.0. No endorsement by Google or Telegram is implied.
+
+Distributors bundling the artwork should include this attribution and the
+license with their distribution (for example in the server's third-party
+notices and the client's artwork credits).
+
+Tool code: MIT, see LICENSE. The tool uses independently installed rendering
+libraries. It contains no python-lottie (AGPL) code. See README.md for dependency
+licenses. Renderer binaries and client sources are not redistributed here.
