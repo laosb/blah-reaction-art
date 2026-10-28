@@ -203,6 +203,9 @@ This is not lottie-web-only validation.
 | Rule / claim | Evidence and policy |
 |---|---|
 | 512×512, 60 fps, ≤3 seconds, ≤64 KiB gzip | Conservative output profile follows [Telegram's sticker requirements](https://core.telegram.org/stickers) and the real bundled assets above. `check` enforces all four; our longest files are 125/60 = 2.083 s. |
+| TGS document thumbnail type / format | **`m`, lossless RGBA WebP.** T-sticker:3348–3360 accepts `m` (also `s`/`t`), :2162–2178 prefers `m` and defaults to WebP; :2945–2960 says server-generated thumbnails are WebP and excludes stripped/progressive sizes. This is a document thumbnail, not a sticker-set TGS thumbnail. |
+| Thumbnail pixel size | **128×128 chosen compatible size, not a confirmed production constant.** tweb `src/lib/appManagers/utils/photos/choosePhotoSize.ts:14–60` uses supplied `w/h` (2× request on high-DPI), with no fixed sticker size/type mapping. Its generic `m box 320x320` comment is not a sticker requirement. W-sticker:209–211,709–712 downloads that thumbnail for static TGS. iOS `TelegramCore/Sources/ApiUtils/TelegramMediaFile.swift:165–177` preserves supplied dimensions/type in `CloudDocumentSizeMediaResource`; `StickerResources/Sources/StickerResources.swift:42–49` selects the largest preview. None establishes 128 as mandatory. No authenticated production document was available to confirm its exact raster size. |
+| Thumbnail padding / resting frame | Full 512 canvas rendered directly to 128, **no crop**, no added border; center retains 0.55 scale. iOS `StickerResources/Sources/StickerResources.swift:489–514` draws the color/alpha image into its fitted rectangle; its 10 px inset (:466–486) belongs to a blurred placeholder, not server raster padding. W-sticker renders the downloaded image in the existing canvas. First frame for center/select/activate; last authored frame (`op−1`) for appear; empty first frame for both effects. |
 | Hard client bounds | iOS `MakeLottieInstance.swift:13–29`: rejects dimension >1536, fps >360, duration >9 s. These are **looser** than sticker authoring guidance. T-sticker:2990–3022 requires sticker/custom-emoji attributes and matching MIME, but does not parse Lottie duration/fps there. `td/telegram/StickerFormat.cpp:152–165` gives TGS 65,536 bytes, ordinary WebP 524,288 bytes (upload limit; not a reaction-specific download validator). |
 | No masks/mattes | Not a blanket renderer limitation. iOS `submodules/rlottie/rlottie/src/lottie/lottieparser.cpp:1015–1020` parses mattes and masks; `lottieitem.cpp:191–215,303–330,647–695` renders them. The Noto thumbs' **alpha track mattes (tt=1/td=1)** are retained, with parent linkage and adjacency intact. Removing them changes visible pixels. Both actual client renderers load/render them. Masks themselves are unnecessary here and rejected by our narrower profile. |
 | Gradient strokes, star shapes, repeaters, time stretching/remapping, auto-orient | iOS parser :982–986,1021–1022,1156–1168 has implementations/hooks for these documented prohibitions. Parsing alone does not establish complete feature parity; we do **not** need or allow them in this output profile. This is not a claim that every renderer supports every variant. |
@@ -274,6 +277,7 @@ The seven slot keys are exactly the TL field names. Each slot contains:
 | `size`, `sha256` | Exact file byte count and lowercase SHA-256 hex |
 | `image_size` | `{w: 512, h: 512}` for TGS, `{w: 72, h: 72}` for WebP; use in `documentAttributeImageSize` |
 | `animated` | False for WebP, true for all TGS, including center |
+| `thumb` | TGS slots only: `{file, type: "m", mime_type: "image/webp", size, sha256, image_size: {w: 128, h: 128}}`; path relative to `reactions/`, exact byte count/hash. No thumb on `static_icon`. |
 
 For **each** document, emit `documentAttributeImageSize(w,h)` and
 `documentAttributeSticker(flags=0, alt=reaction, stickerset=inputStickerSetEmpty)`.
@@ -286,7 +290,19 @@ These are deliberately chosen minimal attributes accepted by T-sticker:2990–30
 production sticker-set metadata. Omitting the sticker attribute causes TDLib to discard the document.
 The server supplies IDs, access hashes, file references and dc_id itself. Set the availableReaction optional
 center/around flag together, serve all seven files, and preserve the heart string exactly as recorded.
+Advertise each TGS thumbnail in the document's `thumbs` as
+`photoSize(type=thumb.type, w=thumb.image_size.w, h=thumb.image_size.h, size=thumb.size)`.
+Serve the thumbnail bytes when `inputDocumentFileLocation.thumb_size == thumb.type` (`"m"`);
+the empty thumb size still requests the original document. Do not serve the TGS at the thumbnail location.
 The server never needs to decompress/parse Lottie.
+
+Thumbnail generation uses the same pinned rlottie/Pillow/libwebp toolchain and lossless settings as static icons.
+`check` regenerates all 18 thumbnails byte-for-byte, checks manifest metadata, still WebP format, 128×128
+RGBA, transparent margins/empty effects, and compares every RGBA channel against a fresh source-frame
+rlottie render with **zero tolerance**. At 40 px, raster resampling versus native vector rendering can have
+small antialiasing differences; geometry and pose are preserved. Generate one comparison sheet per reaction
+with `.venv/bin/python art.py preview-thumbnails`: `.previews/<codepoint>-thumbnail-comparison.png`
+shows each still and fresh resting render at native 128 px and a 40 px canvas. Transparent cells use a checkerboard.
 
 ## Libraries evaluated
 

@@ -18,7 +18,7 @@ import tempfile
 import urllib.request
 from datetime import datetime, timezone
 
-from PIL import Image, ImageDraw, features
+from PIL import Image, ImageChops, ImageDraw, features
 
 ROOT = Path(__file__).resolve().parent
 SOURCES = ROOT / 'sources'
@@ -27,6 +27,8 @@ SLOTS = ('static_icon', 'appear_animation', 'select_animation', 'activate_animat
          'effect_animation', 'around_animation', 'center_icon')
 FRAMES = dict(appear_animation=43, select_animation=121, activate_animation=125,
               effect_animation=90, around_animation=90, center_icon=90)
+THUMB_SIZE = 128  # Compatible document thumbnail canvas; see README evidence.
+THUMB_TYPE = 'm'
 STATIC_SIZE = 72  # Measured iOS star_up/star_reaction_static_icon.webp.
 REST_SPAN = 386   # Measured tweb StarReactionSelect first/last visible width.
 
@@ -330,6 +332,16 @@ def source_entries():
     return json.loads((SOURCES / 'manifest.json').read_text())['sources']
 
 
+def resting_frame(slot, data):
+    return data['op'] - 1 if slot == 'appear_animation' else 0
+
+
+def thumbnail(data, slot):
+    # Render the entire canvas, without cropping or changing the authored padding.
+    with Renderer(data) as renderer:
+        return renderer.render(resting_frame(slot, data), THUMB_SIZE)
+
+
 def generate(destination):
     destination.mkdir(parents=True, exist_ok=True)
     manifest = {'version': 1, 'reactions': []}
@@ -361,6 +373,18 @@ def generate(destination):
                 'image_size': {'w': 512 if animated else STATIC_SIZE,
                                'h': 512 if animated else STATIC_SIZE},
             }
+            if animated:
+                thumb_name = slot + '.thumb.webp'
+                stream = io.BytesIO()
+                thumbnail(assets[slot], slot).save(stream, 'WEBP', lossless=True,
+                                                 quality=100, method=6, exact=True)
+                thumb_blob = stream.getvalue()
+                (folder / thumb_name).write_bytes(thumb_blob)
+                reaction['slots'][slot]['thumb'] = {
+                    'file': f"{entry['codepoint']}/{thumb_name}", 'type': THUMB_TYPE,
+                    'mime_type': 'image/webp', 'size': len(thumb_blob),
+                    'sha256': sha(thumb_blob), 'image_size': {'w': THUMB_SIZE, 'h': THUMB_SIZE},
+                }
         manifest['reactions'].append(reaction)
     write_json(destination / 'manifest.json', manifest)
 
@@ -429,10 +453,11 @@ def validate_tree(destination, renderer_type=Renderer, library=None):
         validate(data, len(blob))
         validate_rendering(data, renderer_type, library)
         print(f'OK {path.parent.name}/{path.name}: {len(blob):5d} bytes, {data["op"]}/60 s', flush=True)
-    for path in destination.glob('*/*.webp'):
+    for path in destination.glob('*/static_icon.webp'):
         with Image.open(path) as im:
             require(path.stat().st_size <= 524288, 'WebP exceeds TDLib sticker upload limit')
             require(im.format == 'WEBP' and im.size == (STATIC_SIZE, STATIC_SIZE) and not getattr(im, 'is_animated', False), 'Bad static icon')
+    validate_thumbnails(destination)
     # Exact same rendered pose at the picker boundary, and at both ends of center.
     for folder in sorted(p for p in destination.iterdir() if p.is_dir()):
         images = {}
@@ -454,6 +479,72 @@ def validate_tree(destination, renderer_type=Renderer, library=None):
         require(images['center_icon'][0].tobytes() == images['center_icon'][1].tobytes(), 'Center endpoint jump')
 
 
+def validate_thumbnails(destination):
+    manifest = json.loads((destination / 'manifest.json').read_text())
+    require(manifest['version'] == 1, 'Manifest version changed')
+    for reaction in manifest['reactions']:
+        for slot, record in reaction['slots'].items():
+            if slot == 'static_icon':
+                require('thumb' not in record, 'Static icon must not have a thumb')
+                continue
+            thumb = record['thumb']
+            source = destination / record['file']
+            path = source.with_suffix('.thumb.webp')
+            blob = path.read_bytes()
+            require(thumb == {'file': path.relative_to(destination).as_posix(),
+                             'type': THUMB_TYPE, 'mime_type': 'image/webp',
+                             'size': len(blob), 'sha256': sha(blob),
+                             'image_size': {'w': THUMB_SIZE, 'h': THUMB_SIZE}},
+                    f'Bad thumbnail metadata: {path}')
+            with Image.open(path) as im:
+                require(im.format == 'WEBP' and im.size == (THUMB_SIZE, THUMB_SIZE)
+                        and not getattr(im, 'is_animated', False) and im.mode == 'RGBA',
+                        f'Bad thumbnail format/dimensions/alpha: {path}')
+                actual = im.copy()
+            data = json.loads(gzip.decompress(source.read_bytes()))
+            fresh = thumbnail(data, slot)
+            # Lossless encoding permits zero tolerance in all RGBA channels.
+            delta = ImageChops.difference(actual, fresh)
+            require(all(hi == 0 for lo, hi in delta.getextrema()),
+                    f'Thumbnail differs from fresh resting render: {path}')
+            alpha = actual.getchannel('A')
+            if slot in ('effect_animation', 'around_animation'):
+                require(alpha.getbbox() is None, f'Effect thumb must be empty: {path}')
+            else:
+                require(alpha.getextrema()[0] == 0 and alpha.getextrema()[1] > 0, f'Missing visible pose/transparency: {path}')
+            print(f'OK {path.parent.name}/{path.name}: {len(blob):5d} bytes, '
+                  f'{THUMB_SIZE}x{THUMB_SIZE} RGBA, rest f{resting_frame(slot, data)}, exact', flush=True)
+
+
+def preview_thumbnails(destination):
+    destination.mkdir(parents=True, exist_ok=True)
+    for entry in source_entries():
+        code = entry['codepoint']
+        sheet = Image.new('RGB', (560, 6 * 165 + 35), '#eef1f6')
+        draw = ImageDraw.Draw(sheet)
+        draw.text((8, 8), '128px: thumb / fresh render       40px: thumb / fresh render', fill='black')
+        for row, slot in enumerate(SLOTS[1:]):
+            y = 35 + row * 165
+            data = json.loads(gzip.decompress((OUTPUT / code / (slot + '.tgs')).read_bytes()))
+            with Image.open(OUTPUT / code / (slot + '.thumb.webp')) as im:
+                still = im.convert('RGBA')
+            with Renderer(data) as renderer:
+                images = [still, renderer.render(resting_frame(slot, data), THUMB_SIZE),
+                          still.resize((40, 40), Image.Resampling.LANCZOS),
+                          renderer.render(resting_frame(slot, data), 40)]
+            draw.text((8, y), f'{slot}  f{resting_frame(slot, data)}', fill='black')
+            for x, im in zip((8, 152, 320, 400), images):
+                for cy in range(0, im.height, 8):
+                    for cx in range(0, im.width, 8):
+                        draw.rectangle((x+cx, y+22+cy, x+min(cx+7, im.width-1),
+                                        y+22+min(cy+7, im.height-1)),
+                                       fill='#ffffff' if (cx//8+cy//8)%2 else '#d9dee7')
+                sheet.paste(im, (x, y+22), im)
+        path = destination / f'{code}-thumbnail-comparison.png'
+        sheet.save(path)
+        print(f'Thumbnail preview: {path}', flush=True)
+
+
 def check():
     with tempfile.TemporaryDirectory(prefix='blah-reactions-') as tmp:
         dest = Path(tmp)
@@ -463,7 +554,7 @@ def check():
         differences = [str(p) for p in expected.keys() | actual.keys() if expected.get(p) != actual.get(p)]
         require(not differences, 'Regeneration differs: ' + ', '.join(sorted(differences)))
     validate_tree(OUTPUT)
-    print('PASS: offline regeneration is byte-identical; all formats, bounds and hand-offs validated.')
+    print('PASS: offline regeneration is byte-identical; all formats, bounds, hand-offs and 18 exact RGBA thumbnails validated.')
 
 
 def preview(destination, renderer_type=Renderer, library=None):
@@ -703,7 +794,7 @@ def references(tweb, ios, destination, renderer_type=Renderer, library=None):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=['build', 'check', 'fetch', 'preview', 'verify-renderer', 'references'])
+    parser.add_argument('command', choices=['build', 'check', 'fetch', 'preview', 'verify-renderer', 'references', 'preview-thumbnails'])
     parser.add_argument('--library', type=Path, help='Additional rlottie shared library to verify/preview')
     parser.add_argument('--wasm', type=Path, help='Actual tweb tlottie WASM to verify/preview')
     parser.add_argument('--output', type=Path, help='Preview directory (default .previews)')
@@ -727,6 +818,8 @@ def main():
     elif args.command == 'verify-renderer':
         require(library, 'Pass --library or --wasm')
         validate_tree(OUTPUT, renderer_type, library)
+    elif args.command == 'preview-thumbnails':
+        preview_thumbnails(args.output or ROOT / '.previews')
     elif args.command == 'preview':
         preview(args.output or ROOT / '.previews', renderer_type, library)
     elif args.command == 'references':
