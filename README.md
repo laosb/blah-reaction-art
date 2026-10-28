@@ -277,6 +277,9 @@ The seven slot keys are exactly the TL field names. Each slot contains:
 
 For **each** document, emit `documentAttributeImageSize(w,h)` and
 `documentAttributeSticker(flags=0, alt=reaction, stickerset=inputStickerSetEmpty)`.
+For every TGS document, also emit `documentAttributeFilename(file_name="AnimatedSticker.tgs")`.
+Tweb requires this filename to recognise TGS (`src/lib/appManagers/appDocsManager.ts:271`);
+the MIME type and sticker attribute alone are insufficient.
 No mask, mask coordinates, sticker-set ID, custom-emoji attribute or video attribute is needed.
 `animated` is the media-format indicator; it does not imply looping or require `documentAttributeAnimated`.
 These are deliberately chosen minimal attributes accepted by T-sticker:2990–3022, not recovered Telegram
