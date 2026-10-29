@@ -25,8 +25,9 @@ SOURCES = ROOT / 'sources'
 OUTPUT = ROOT / 'reactions'
 SLOTS = ('static_icon', 'appear_animation', 'select_animation', 'activate_animation',
          'effect_animation', 'around_animation', 'center_icon')
-FRAMES = dict(appear_animation=43, select_animation=121, activate_animation=125,
-              effect_animation=90, around_animation=90, center_icon=90)
+FRAMES = dict(appear_animation=43, effect_animation=90, around_animation=90, center_icon=90)
+MOTION_LEAD = 6
+SOURCE_COMP = 'blah_source'
 THUMB_SIZE = 128  # Compatible document thumbnail canvas; see README evidence.
 THUMB_TYPE = 'm'
 STATIC_SIZE = 72  # Measured iOS star_up/star_reaction_static_icon.webp.
@@ -167,42 +168,55 @@ def document(layers, frames):
             'w': 512, 'h': 512, 'ddd': 0, 'assets': [], 'layers': layers}
 
 
-def first_value(node):
-    value = copy.deepcopy(node['k'][0]['s'])
-    # Animated scalar and shape keyframes wrap their values in an array.
-    return value[0] if len(value) == 1 else value
-
-
-def clean(node, freeze=False, source_end=1):
+def clean(node):
+    """Strip exporter metadata only; preserve every source timeline verbatim."""
     if isinstance(node, list):
-        return [clean(x, freeze, source_end) for x in node]
+        return [clean(x) for x in node]
     if not isinstance(node, dict):
         return node
-    if node.get('a') == 1 and isinstance(node.get('k'), list):
-        if freeze:
-            return prop(first_value(node))
-        keys = copy.deepcopy(node['k'])
-        for key in keys:
-            key['t'] = 6 + key['t'] * 90 / source_end
-        # Hold first pose, play Noto motion, ease back to the identical rest pose.
-        start = copy.deepcopy(keys[0]['s'])
-        keys.insert(0, {'t': 0, 's': start, 'h': 1})
-        keys[-1].update(i={'x': [1], 'y': [1]}, o={'x': [0], 'y': [0]})
-        keys.append({'t': 108, 's': start})
-        return {'a': 1, 'k': clean(keys)}
-    # Strip exporter metadata, not visual operations. 'tm' in shape paths is a
-    # trim-path operator; never confuse that with layer time remapping.
-    return {k: clean(v, freeze, source_end) for k, v in node.items()
+    return {k: clean(v) for k, v in node.items()
             if k not in {'nm', 'mn', 'ix', 'ln', 'cl', 'markers'}}
+
+
+def source_composition(source, frames, motion=False):
+    """Keep nested composition clocks, visibility, parenting and mattes intact.
+
+    The motion layer's start time is the ONLY change to source playback time.
+    Rest layers hold source frame zero, including negative-start precompositions.
+    Two equal animated tm keys are intentional: rlottie ignores static tm.
+    """
+    assets = clean(source.get('assets', []))
+    require(all(a['id'] != SOURCE_COMP for a in assets), 'Reserved composition ID')
+    assets.append({'id': SOURCE_COMP, 'layers': clean(source['layers'])})
+
+    def layer(index, start, end, moving=False):
+        result = {'ty': 0, 'ind': index, 'refId': SOURCE_COMP,
+                  'w': source['w'], 'h': source['h'], 'ip': start, 'op': end,
+                  'st': start if moving else 0, 'ks': transform()}
+        if end < frames:
+            # Packaged rlottie includes a layer's op; iOS/tlottie exclude it.
+            # Explicit held opacity makes hand-offs exclusive in all three.
+            result['ks']['o'] = {'a': 1, 'k': [
+                {'t': 0, 's': [100], 'h': 1}, {'t': end, 's': [0]}]}
+        if not moving:
+            result['tm'] = tween([(0, 0), (frames, 0)])
+        return result
+
+    if motion:
+        end = MOTION_LEAD + source['op']
+        # Noto animations are loops. Close exactly as the source player does:
+        # after op-1 show frame zero, with no added easing or stretched motion.
+        layers = [layer(1, MOTION_LEAD, end, True), layer(2, 0, MOTION_LEAD),
+                  layer(3, end, frames)]
+    else:
+        layers = [layer(1, 0, frames)]
+    return layers, assets
 
 
 def wrap(layers, frames, anchor, scale, position=(256, 256)):
     layers = copy.deepcopy(layers)
     index = max((x['ind'] for x in layers), default=0) + 1
     for layer in layers:
-        layer.update(ip=0, op=frames, st=0)
-        layer.pop('sr', None)
-        layer.pop('ao', None)
         if 'parent' not in layer:
             layer['parent'] = index
     parent = {'ty': 3, 'ind': index, 'ip': 0, 'op': frames, 'st': 0,
@@ -213,8 +227,8 @@ def wrap(layers, frames, anchor, scale, position=(256, 256)):
 def normalized(source):
     require(source['w'] == source['h'] and source['ip'] == 0 and source['fr'] == 60,
             'Source profile requires a square canvas, ip=0 and 60 fps')
-    require(not source.get('assets'), 'New sources with assets need explicit review')
-    require(all(l['ty'] == 4 for l in source['layers']), 'Expected only source shape layers')
+    require(source['op'] > 0 and int(source['op']) == source['op'], 'Expected integral source duration')
+    validate_compositions(source)
     # Measure the whole motion, including matte results, with the pinned renderer.
     # Use source resolution, not a thumbnail, for stable pixel bounds.
     boxes = []
@@ -240,8 +254,11 @@ def palette(source):
     with Renderer(source) as renderer:
         counts = Counter(pixel[:3] for pixel in renderer.render(0, 128).get_flattened_data()
                          if pixel[3] >= 250)
+    # Near-white eye/teeth paint disappears on light chat backgrounds. Prefer
+    # the source's contrasting paints when available, without emoji branches.
+    contrasting = {rgb: count for rgb, count in counts.items() if min(rgb) < 200}
     colors = []
-    for rgb, count in sorted(counts.items(), key=lambda pair: (-pair[1], pair[0])):
+    for rgb, count in sorted((contrasting or counts).items(), key=lambda pair: (-pair[1], pair[0])):
         if all(sum((a - b) ** 2 for a, b in zip(rgb, c)) > 1600 for c in colors):
             colors.append(rgb)
         if len(colors) == 3:
@@ -296,14 +313,16 @@ def particles(source, large):
 
 def convert(source):
     anchor, scale = normalized(source)
-    still = clean(source['layers'], freeze=True)
-    motion = clean(source['layers'], source_end=source['op'])
     result = {}
     for slot in ('appear_animation', 'select_animation', 'activate_animation', 'center_icon'):
-        frames = FRAMES[slot]
-        layers = motion if slot in ('select_animation', 'activate_animation') else still
+        moving = slot in ('select_animation', 'activate_animation')
+        frames = MOTION_LEAD + int(source['op']) + 1 if moving else FRAMES[slot]
+        if slot == 'activate_animation':
+            frames = max(frames, 61)  # Authored tilt must also finish at rest.
+        layers, assets = source_composition(source, frames, moving)
         size = scale * (0.55 if slot == 'center_icon' else 1)
         data = wrap(layers, frames, anchor, size)
+        data['assets'] = assets
         root = data['layers'][-1]['ks']
         if slot == 'appear_animation':
             root['s'] = tween([(0, [size * .15] * 2 + [100]),
@@ -322,7 +341,9 @@ def convert(source):
         result[slot] = canonical(data)
     result['around_animation'] = particles(source, False)
     result['effect_animation'] = particles(source, True)
+    still, assets = source_composition(source, 1)
     static = wrap(still, 1, anchor, scale)
+    static['assets'] = assets
     with Renderer(static) as renderer:
         result['static_icon'] = renderer.render(0, STATIC_SIZE)
     return result
@@ -394,7 +415,7 @@ def validate(data, compressed_size):
     require(data['fr'] == 60 and data['ip'] == 0, 'Expected 60 fps, ip=0')
     require(1 <= data['op'] <= 180 and int(data['op']) == data['op'], 'Duration outside 1..180 frames')
     require(compressed_size <= 65536, 'TGS exceeds 64 KiB')
-    require(not data.get('assets'), 'Assets are not allowed in this profile')
+    validate_compositions(data)
     def visit(node, path='root'):
         if isinstance(node, list):
             for i, v in enumerate(node):
@@ -406,9 +427,9 @@ def validate(data, compressed_size):
             require(node.get('bm', 0) == 0, f'Blend mode: {path}')
             ty = node.get('ty')
             if isinstance(ty, int):
-                require(ty in (3, 4), f'Forbidden layer type: {path}')
-                require('tm' not in node and node.get('sr', 1) == 1, f'Time remap/stretch: {path}')
-                require(node.get('tt', 0) in (0, 1), f'Only proven alpha mattes permitted: {path}')
+                require(ty in (0, 3, 4), f'Forbidden layer type: {path}')
+                require(('tm' not in node or ty == 0) and node.get('sr', 1) == 1, f'Time remap/stretch: {path}')
+                require(node.get('tt', 0) in (0, 1, 2), f'Only alpha/inverted alpha mattes permitted: {path}')
             elif isinstance(ty, str):
                 require(ty in {'gr', 'sh', 'fl', 'st', 'tr', 'el', 'rc', 'gf', 'tm'},
                         f'Unverified shape feature {ty}: {path}')
@@ -416,23 +437,47 @@ def validate(data, compressed_size):
             for k, v in node.items():
                 visit(v, path + '.' + k)
     visit(data)
-    layers = data['layers']
-    ids = {l['ind'] for l in layers}
-    require(len(ids) == len(layers), 'Duplicate layer index')
-    for i, layer in enumerate(layers):
-        require('parent' not in layer or layer['parent'] in ids, 'Missing parent')
-        if layer.get('tt'):
-            require(i > 0 and layers[i - 1].get('td') == 1, 'Broken matte adjacency')
+
+
+def validate_compositions(data):
+    """Only embedded vector compositions; reject dangling/cyclic references."""
+    assets = data.get('assets', [])
+    require(all('layers' in a and not any(k in a for k in ('p', 'u', 'e')) for a in assets),
+            'Only embedded vector composition assets are allowed')
+    by_id = {a['id']: a for a in assets}
+    require(len(by_id) == len(assets), 'Duplicate asset ID')
+    for comp in [data] + assets:
+        require(comp.get('fr', 60) == 60, 'Composition must use 60 fps')
+        layers = comp['layers']
+        ids = {l['ind'] for l in layers}
+        require(len(ids) == len(layers), 'Duplicate layer index')
+        for i, layer in enumerate(layers):
+            require(layer['ty'] in (0, 3, 4), 'Expected vector precomp/null/shape layer')
+            require('parent' not in layer or layer['parent'] in ids, 'Missing parent')
+            require(layer.get('sr', 1) == 1, 'Unsupported layer stretch')
+            if layer['ty'] == 0:
+                require(layer.get('refId') in by_id, 'Missing precomposition')
+            if layer.get('tt'):
+                require(i > 0 and layers[i - 1].get('td') == 1, 'Broken matte adjacency')
+    def visit(comp, ancestors):
+        for layer in comp['layers']:
+            if layer['ty'] == 0:
+                ref = layer['refId']
+                require(ref not in ancestors, 'Cyclic precomposition')
+                visit(by_id[ref], ancestors | {ref})
+    for comp in [data] + assets:
+        visit(comp, set())
 
 
 def padded(data):
     """Render outside the nominal canvas to detect escaped artwork, not just clipping."""
     result = wrap(data['layers'], data['op'], (0, 0), 100, (128, 128))
+    result['assets'] = copy.deepcopy(data.get('assets', []))
     result['w'] = result['h'] = 768
     return result
 
 
-def validate_rendering(data, renderer_type=Renderer, library=None):
+def validate_rendering(data, renderer_type=Renderer, library=None, visible=False):
     with renderer_type(data, library) as renderer:
         require(renderer.fps == 60, 'Renderer reports wrong fps')
         # Some renderers optimize entirely static files to a single frame.
@@ -442,6 +487,7 @@ def validate_rendering(data, renderer_type=Renderer, library=None):
     with renderer_type(padded(data), library) as renderer:
         for frame in range(data['op']):
             box = renderer.render(frame, 768).getbbox()  # 1 output pixel / Lottie unit
+            require(not visible or box, f'Unexpected blank icon frame {frame}')
             require(not box or (box[0] >= 128 and box[1] >= 128 and box[2] <= 640 and box[3] <= 640),
                     f'Artwork escapes canvas at frame {frame}: {box}')
 
@@ -451,13 +497,15 @@ def validate_tree(destination, renderer_type=Renderer, library=None):
         blob = path.read_bytes()
         data = json.loads(gzip.decompress(blob))
         validate(data, len(blob))
-        validate_rendering(data, renderer_type, library)
+        validate_rendering(data, renderer_type, library, path.stem in
+                           ('select_animation', 'activate_animation', 'center_icon'))
         print(f'OK {path.parent.name}/{path.name}: {len(blob):5d} bytes, {data["op"]}/60 s', flush=True)
     for path in destination.glob('*/static_icon.webp'):
         with Image.open(path) as im:
             require(path.stat().st_size <= 524288, 'WebP exceeds TDLib sticker upload limit')
             require(im.format == 'WEBP' and im.size == (STATIC_SIZE, STATIC_SIZE) and not getattr(im, 'is_animated', False), 'Bad static icon')
     validate_thumbnails(destination)
+    validate_source_motion(destination, renderer_type, library)
     # Exact same rendered pose at the picker boundary, and at both ends of center.
     for folder in sorted(p for p in destination.iterdir() if p.is_dir()):
         images = {}
@@ -477,6 +525,47 @@ def validate_tree(destination, renderer_type=Renderer, library=None):
         require(images['select_animation'][1].tobytes() == rest, 'Select rest/loop jump')
         require(images['activate_animation'][0].tobytes() == rest == images['activate_animation'][1].tobytes(), 'Activate endpoint jump')
         require(images['center_icon'][0].tobytes() == images['center_icon'][1].tobytes(), 'Center endpoint jump')
+
+
+def validate_source_motion(destination, renderer_type=Renderer, library=None):
+    """Guard the clock AND rendered source poses, independently of conversion."""
+    def key_times(node, path=()):
+        if isinstance(node, list):
+            for i, value in enumerate(node):
+                yield from key_times(value, path + (i,))
+        elif isinstance(node, dict):
+            if node.get('a') == 1 and isinstance(node.get('k'), list):
+                yield path, [key['t'] for key in node['k']]
+            for key, value in node.items():
+                yield from key_times(value, path + (key,))
+
+    for entry in source_entries():
+        source = json.loads((SOURCES / entry['file']).read_bytes())
+        # Compare at source canvas geometry, independently of normalization and
+        # its renderer-specific matte rasterization/rounding.
+        with renderer_type(source, library) as original:
+            poses = [original.render(f, 128).tobytes() for f in range(int(source['op']))]
+        for slot in ('select_animation', 'activate_animation'):
+            data = json.loads(gzip.decompress((destination / entry['codepoint'] / (slot + '.tgs')).read_bytes()))
+            motion = data['layers'][0]
+            require(motion['refId'] == SOURCE_COMP and motion['ip'] == motion['st'] == MOTION_LEAD
+                    and motion['op'] == MOTION_LEAD + source['op']
+                    and motion.get('sr', 1) == 1 and 'tm' not in motion,
+                    f'{entry["codepoint"]}/{slot}: source clock must have slope 1, offset {MOTION_LEAD}')
+            expected = source.get('assets', []) + [{'id': SOURCE_COMP, 'layers': source['layers']}]
+            require(list(key_times(expected)) == list(key_times(data['assets'])),
+                    f'{entry["codepoint"]}/{slot}: source keyframe times changed')
+            require(canonical(clean(expected)) == data['assets'], 'Source composition changed')
+            require(data['op'] >= MOTION_LEAD + source['op'] + 1, 'Source motion truncated')
+            # Remove ONLY the outer geometric transform (including authored tilt).
+            data['layers'][-1]['ks'] = transform()
+            data['w'], data['h'] = source['w'], source['h']
+            with renderer_type(data, library) as converted:
+                for f, pose in enumerate(poses):
+                    require(converted.render(f + MOTION_LEAD, 128).tobytes() == pose,
+                            f'{entry["codepoint"]}/{slot}: source pose/timing differs at frame {f}')
+        print(f'OK {entry["codepoint"]}: source keyframe clock slope 1; '
+              f'all {source["op"]} source poses exact in select/activate', flush=True)
 
 
 def validate_thumbnails(destination):
@@ -554,7 +643,8 @@ def check():
         differences = [str(p) for p in expected.keys() | actual.keys() if expected.get(p) != actual.get(p)]
         require(not differences, 'Regeneration differs: ' + ', '.join(sorted(differences)))
     validate_tree(OUTPUT)
-    print('PASS: offline regeneration is byte-identical; all formats, bounds, hand-offs and 18 exact RGBA thumbnails validated.')
+    print(f'PASS: offline regeneration is byte-identical; source-speed motion, all formats, bounds, '
+          f'hand-offs and {len(source_entries()) * 6} exact RGBA thumbnails validated.')
 
 
 def preview(destination, renderer_type=Renderer, library=None):
@@ -586,8 +676,9 @@ def preview(destination, renderer_type=Renderer, library=None):
         # the small UI for inspection. Large activation uses native point scale.
         clips = {'bubble-tweb': [], 'bubble-ios': [], 'picker': [],
                  'activate-outgoing-ios': [], 'activate-incoming-ios': []}
-        appear_frames = FRAMES['appear_animation']
-        for f in range(appear_frames + FRAMES['select_animation']):
+        appear_frames = data['appear_animation']['op']
+        picker_frames = appear_frames + data['select_animation']['op']
+        for f in range(max(picker_frames, data['activate_animation']['op'], data['around_animation']['op'])):
             if f < FRAMES['around_animation']:
                 for client, around_size in [('tweb', 80), ('ios', 120)]:
                     im = Image.new('RGBA', (160, 160), '#eef1f6')
@@ -601,8 +692,9 @@ def preview(destination, renderer_type=Renderer, library=None):
             im = Image.new('RGBA', (100, 72), '#eef1f6')
             slot, t = ('appear_animation', f) if f < appear_frames else ('select_animation', f - appear_frames)
             im.alpha_composite(frame(slot, t, 28), (36, 22))
-            clips['picker'].append(im.convert('RGB').resize((500, 360), Image.Resampling.NEAREST))
-            if f < FRAMES['activate_animation']:
+            if f < picker_frames:
+                clips['picker'].append(im.convert('RGB').resize((500, 360), Image.Resampling.NEAREST))
+            if f < max(data['activate_animation']['op'], data['effect_animation']['op']):
                 for incoming in (False, True):
                     im = Image.new('RGBA', (400, 280), '#eef1f6')
                     # iOS inserts effect AFTER the icon, so it is above it.
@@ -732,10 +824,11 @@ def references(tweb, ios, destination, renderer_type=Renderer, library=None):
 
     for entry in source_entries():
         code = entry['codepoint']
-        own = {slot: renderer_type(json.loads(gzip.decompress(
-            (OUTPUT / code / (slot + '.tgs')).read_bytes())), library) for slot in SLOTS[1:]}
+        own_data = {slot: json.loads(gzip.decompress(
+            (OUTPUT / code / (slot + '.tgs')).read_bytes())) for slot in SLOTS[1:]}
+        own = {slot: renderer_type(data, library) for slot, data in own_data.items()}
         def frame(slot, f, size):
-            return own[slot].render(min(f, FRAMES[slot] - 1), size)
+            return own[slot].render(min(f, own_data[slot]['op'] - 1), size)
         comparisons = Image.new('RGB', (2400, 5 * 230), '#eef1f6')
         draw = ImageDraw.Draw(comparisons)
         names = ['bubble tweb: Noto / paid Star', 'picker: Noto / Star',

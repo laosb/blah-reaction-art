@@ -8,10 +8,10 @@ The full license, including its warranty disclaimer, is in LICENSE-artwork.
 Original download URLs, retrieval dates and SHA-256 hashes: sources/manifest.json.
 
 Adapted for Blah default reactions by blah-reaction-art contributors (2026).
-Changes: normalized and centered on 512 x 512 canvases; retimed motion; extracted
+Changes: normalized and centered on 512 x 512 canvases; preserved native-speed motion with a lead-in hold; froze
 resting poses; added entrance scaling/fades, activation rotation and center
 pulse; added separate palette-derived circle/diamond particle effects;
-removed exporter metadata and redundant defaults; retained alpha track mattes;
+removed exporter metadata and redundant defaults; retained vector precompositions, source time remapping and alpha/inverted-alpha track mattes;
 encoded as deterministic gzip TGS and lossless transparent WebP.
 The resulting reactions/ artwork and these artwork contributions are also
 provided under CC BY 4.0. No endorsement by Google or Telegram is implied.

@@ -11,8 +11,8 @@
             "w": 512
           },
           "mime_type": "application/x-tgsticker",
-          "sha256": "23a5b5b2c71156f03726fc667e7e6bea23065575c420eb8ccbb7afef929a9f1a",
-          "size": 12038,
+          "sha256": "9f1d6248e64e8a53f67aed806b04d0d232d56e6c259aeb8858fc0230bc32e9c1",
+          "size": 11610,
           "thumb": {
             "file": "1f44d/activate_animation.thumb.webp",
             "image_size": {
@@ -33,8 +33,8 @@
             "w": 512
           },
           "mime_type": "application/x-tgsticker",
-          "sha256": "a4d9d832b8fa3b312c5ea8d6ffbbc5b048f40517cec333314897befcaab26811",
-          "size": 2291,
+          "sha256": "3002111f594537598c3402de68aa43046c02fcf6c896d3dfc506df13f58bba9d",
+          "size": 11582,
           "thumb": {
             "file": "1f44d/appear_animation.thumb.webp",
             "image_size": {
@@ -77,8 +77,8 @@
             "w": 512
           },
           "mime_type": "application/x-tgsticker",
-          "sha256": "6ec796e58e917d8d0d2205b5d48a02a7dc35c99799e548d50b1cfd769401f6a0",
-          "size": 2260,
+          "sha256": "bd90c2bceb9de789d0f4cc3a5b7457c67c173ee5db58e5cd27004bea10f15341",
+          "size": 11563,
           "thumb": {
             "file": "1f44d/center_icon.thumb.webp",
             "image_size": {
@@ -121,8 +121,8 @@
             "w": 512
           },
           "mime_type": "application/x-tgsticker",
-          "sha256": "1f7b47e5f5655609a05dd9f3b7208fbc72ea9fbbb9d3833c89dc3d73a929e734",
-          "size": 12017,
+          "sha256": "97532e8942d4867b93a7037b835ff954ab2665ed93f6774efc7d1d199605fdf5",
+          "size": 11588,
           "thumb": {
             "file": "1f44d/select_animation.thumb.webp",
             "image_size": {
@@ -160,8 +160,8 @@
             "w": 512
           },
           "mime_type": "application/x-tgsticker",
-          "sha256": "720a9b595d13eeb37452078cf734432f3db7d7a78cfb09080402603c377d57c2",
-          "size": 11996,
+          "sha256": "2d5bd1f5a67bc0871af7a31f608f998cd7da544f15a1da21d865345005f7e579",
+          "size": 11572,
           "thumb": {
             "file": "1f44e/activate_animation.thumb.webp",
             "image_size": {
@@ -182,8 +182,8 @@
             "w": 512
           },
           "mime_type": "application/x-tgsticker",
-          "sha256": "39bed43779521c56b6accfb635adc1c77e82fc75aff93300a684661f48938105",
-          "size": 2281,
+          "sha256": "ab36bc545892bc13662287abc47aa317f2f4255eb6949f595bc019876591ff2b",
+          "size": 11545,
           "thumb": {
             "file": "1f44e/appear_animation.thumb.webp",
             "image_size": {
@@ -226,8 +226,8 @@
             "w": 512
           },
           "mime_type": "application/x-tgsticker",
-          "sha256": "af633480b89529473a8480da361af7f71bd5c2d2188b2e28023f4ec5fd1830c6",
-          "size": 2250,
+          "sha256": "a162a8ecd3f29c8c753fd50ee93ef93f059b2a732ffbf38700f500ba291bb2dc",
+          "size": 11526,
           "thumb": {
             "file": "1f44e/center_icon.thumb.webp",
             "image_size": {
@@ -270,8 +270,8 @@
             "w": 512
           },
           "mime_type": "application/x-tgsticker",
-          "sha256": "aa861b1932687a69578f689593007b81e5ee0c072947d7c9834af8996e4c1068",
-          "size": 11975,
+          "sha256": "66d6628298d5364b8b0978090728fd28207e7bebf4dee2b62bf3fdbc9d8b01cb",
+          "size": 11550,
           "thumb": {
             "file": "1f44e/select_animation.thumb.webp",
             "image_size": {
@@ -309,8 +309,8 @@
             "w": 512
           },
           "mime_type": "application/x-tgsticker",
-          "sha256": "c2de84870b718a39098289b94cb8bea8f118df0fe93f8eca391b72b0a087665f",
-          "size": 1788,
+          "sha256": "7e2dc088a6b4b6ce6984cd5f83a2ab9dc84e48dd1faf9cb0f9ca429b56e6a9d4",
+          "size": 1813,
           "thumb": {
             "file": "2764/activate_animation.thumb.webp",
             "image_size": {
@@ -331,8 +331,8 @@
             "w": 512
           },
           "mime_type": "application/x-tgsticker",
-          "sha256": "6cef0d27076b836eabbbec0e4e0948ced35ad8e2d921af24469675933ed1eb0f",
-          "size": 873,
+          "sha256": "a1202628442e9eca88a33cf5156f8b40237ac9f1f28c28395d98a6583f709991",
+          "size": 1786,
           "thumb": {
             "file": "2764/appear_animation.thumb.webp",
             "image_size": {
@@ -375,8 +375,8 @@
             "w": 512
           },
           "mime_type": "application/x-tgsticker",
-          "sha256": "5c5c5f324060109ea799e72109a4da9c7b01e9b459fcabeeb85d33151b3d8e6e",
-          "size": 843,
+          "sha256": "0c42f09898ca061cec665ff3010fafce0b6a289921f6c182a2af0ae1da905068",
+          "size": 1763,
           "thumb": {
             "file": "2764/center_icon.thumb.webp",
             "image_size": {
@@ -419,8 +419,8 @@
             "w": 512
           },
           "mime_type": "application/x-tgsticker",
-          "sha256": "7f6b7e0ba1ad06a24b7a48f2b8d3f2d7496e3a33620992401a1417a365956e8b",
-          "size": 1762,
+          "sha256": "243b37c461c24a4e07ddd0c60c0d1de95829aecfd5b8614aa7131b62413b631e",
+          "size": 1790,
           "thumb": {
             "file": "2764/select_animation.thumb.webp",
             "image_size": {
@@ -446,6 +446,453 @@
         }
       },
       "title": "Red Heart"
+    },
+    {
+      "reaction": "💯",
+      "slots": {
+        "activate_animation": {
+          "animated": true,
+          "file": "1f4af/activate_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "7c40ee788f34d8f4df0f6b6b5d96b15ec74cf1685089536b6e3e539c55c16159",
+          "size": 18589,
+          "thumb": {
+            "file": "1f4af/activate_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "fb3f9c1ff1a2ba50b9db595d3d5b9897e37fda28d8a2cf97a4b7b97e92d26d97",
+            "size": 2420,
+            "type": "m"
+          }
+        },
+        "appear_animation": {
+          "animated": true,
+          "file": "1f4af/appear_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "c9300584e6113958cb6024d880748f1079ddd8aea47e71ca058afe5de265f4fe",
+          "size": 18563,
+          "thumb": {
+            "file": "1f4af/appear_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "fb3f9c1ff1a2ba50b9db595d3d5b9897e37fda28d8a2cf97a4b7b97e92d26d97",
+            "size": 2420,
+            "type": "m"
+          }
+        },
+        "around_animation": {
+          "animated": true,
+          "file": "1f4af/around_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "0e6575450a7a5b95791d4b502d598572cb5724ef10ffa0655de256dbd770a2e5",
+          "size": 1091,
+          "thumb": {
+            "file": "1f4af/around_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "d9d039e6e989f2656dda2a88f0e89b93d41cc122bb4e9a517c1ee501da2c9fb2",
+            "size": 28,
+            "type": "m"
+          }
+        },
+        "center_icon": {
+          "animated": true,
+          "file": "1f4af/center_icon.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "d64bd97f2104f8911ab7c4b86f8d3b20b07156212ac2f3676ff44fd5cac4ec15",
+          "size": 18542,
+          "thumb": {
+            "file": "1f4af/center_icon.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "c96d8de168e41052f118d4c77c7571f9fdec8a59733172915cca38b953513d71",
+            "size": 1448,
+            "type": "m"
+          }
+        },
+        "effect_animation": {
+          "animated": true,
+          "file": "1f4af/effect_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "b451d5bff2663b95586b5ce47be469a3f6dede7c7df079a72daf9f135ee14aaf",
+          "size": 1415,
+          "thumb": {
+            "file": "1f4af/effect_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "d9d039e6e989f2656dda2a88f0e89b93d41cc122bb4e9a517c1ee501da2c9fb2",
+            "size": 28,
+            "type": "m"
+          }
+        },
+        "select_animation": {
+          "animated": true,
+          "file": "1f4af/select_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "a250e2c76881bf5d5c3d28c5378bce546ebbabdea973c71371be66a98cacbb64",
+          "size": 18565,
+          "thumb": {
+            "file": "1f4af/select_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "fb3f9c1ff1a2ba50b9db595d3d5b9897e37fda28d8a2cf97a4b7b97e92d26d97",
+            "size": 2420,
+            "type": "m"
+          }
+        },
+        "static_icon": {
+          "animated": false,
+          "file": "1f4af/static_icon.webp",
+          "image_size": {
+            "h": 72,
+            "w": 72
+          },
+          "mime_type": "image/webp",
+          "sha256": "731516f2a5ae2b85bd4fbbe20623f3709598357c97ddbffe4f29992280931d34",
+          "size": 1478
+        }
+      },
+      "title": "HUNDRED POINTS SYMBOL"
+    },
+    {
+      "reaction": "🤣",
+      "slots": {
+        "activate_animation": {
+          "animated": true,
+          "file": "1f923/activate_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "730de7d3b5e6f08d26072589d8b7bb4f616fe17bb12295cebc0454ddd865c834",
+          "size": 13654,
+          "thumb": {
+            "file": "1f923/activate_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "98b4294a8e1fe67153f4a807db096842944032eb469432a0a433938064907261",
+            "size": 6840,
+            "type": "m"
+          }
+        },
+        "appear_animation": {
+          "animated": true,
+          "file": "1f923/appear_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "596e829bb4472802c78ed2a5dadfe76f0fe0180d7a4aea6d3e29b02280821b7a",
+          "size": 13620,
+          "thumb": {
+            "file": "1f923/appear_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "98b4294a8e1fe67153f4a807db096842944032eb469432a0a433938064907261",
+            "size": 6840,
+            "type": "m"
+          }
+        },
+        "around_animation": {
+          "animated": true,
+          "file": "1f923/around_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "cae660425ddeb6623d5f1fcaa03e8f408737d565c46b9660091799fc8c25cc9d",
+          "size": 1132,
+          "thumb": {
+            "file": "1f923/around_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "d9d039e6e989f2656dda2a88f0e89b93d41cc122bb4e9a517c1ee501da2c9fb2",
+            "size": 28,
+            "type": "m"
+          }
+        },
+        "center_icon": {
+          "animated": true,
+          "file": "1f923/center_icon.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "c031ddcbaa2f603a355b4afe4b53e0e06f81546548262abfff240cc50e0deb2b",
+          "size": 13600,
+          "thumb": {
+            "file": "1f923/center_icon.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "f798345af03965afdd55ac7b1e056ef094fc407fb46acf1c2d5d3bb93bf8ef9f",
+            "size": 3550,
+            "type": "m"
+          }
+        },
+        "effect_animation": {
+          "animated": true,
+          "file": "1f923/effect_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "9edc594c78ce75e0f272233e7d5db2ef849e53c7c141c8274d003bf6c6a93698",
+          "size": 1453,
+          "thumb": {
+            "file": "1f923/effect_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "d9d039e6e989f2656dda2a88f0e89b93d41cc122bb4e9a517c1ee501da2c9fb2",
+            "size": 28,
+            "type": "m"
+          }
+        },
+        "select_animation": {
+          "animated": true,
+          "file": "1f923/select_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "704d02d98b7a45c87763861da5662b7d5e7dfeaca2d07cdf996111990f9ec181",
+          "size": 13633,
+          "thumb": {
+            "file": "1f923/select_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "98b4294a8e1fe67153f4a807db096842944032eb469432a0a433938064907261",
+            "size": 6840,
+            "type": "m"
+          }
+        },
+        "static_icon": {
+          "animated": false,
+          "file": "1f923/static_icon.webp",
+          "image_size": {
+            "h": 72,
+            "w": 72
+          },
+          "mime_type": "image/webp",
+          "sha256": "5fa8bd6b9ff34e55c668755dc87ba9375c9b00592b9c002506d19986a24d330c",
+          "size": 3668
+        }
+      },
+      "title": "ROLLING ON THE FLOOR LAUGHING"
+    },
+    {
+      "reaction": "👀",
+      "slots": {
+        "activate_animation": {
+          "animated": true,
+          "file": "1f440/activate_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "127517e63cbb21c04ecc2c76e1bbecf4af42e3e181af095161992e87fae93a61",
+          "size": 1806,
+          "thumb": {
+            "file": "1f440/activate_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "412bed3a7bd38de752ae96f7714fbdd547a8ca37807048a266aa0ed3391b8b48",
+            "size": 2944,
+            "type": "m"
+          }
+        },
+        "appear_animation": {
+          "animated": true,
+          "file": "1f440/appear_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "535cbfd46d08f6199357f9bee8045c39f8cf26363b6e8912a54e821b39743cb6",
+          "size": 1780,
+          "thumb": {
+            "file": "1f440/appear_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "412bed3a7bd38de752ae96f7714fbdd547a8ca37807048a266aa0ed3391b8b48",
+            "size": 2944,
+            "type": "m"
+          }
+        },
+        "around_animation": {
+          "animated": true,
+          "file": "1f440/around_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "f884295638ccfa9f0c483336a3b34717215f7dfa5d491264b61bdd39f9403685",
+          "size": 1116,
+          "thumb": {
+            "file": "1f440/around_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "d9d039e6e989f2656dda2a88f0e89b93d41cc122bb4e9a517c1ee501da2c9fb2",
+            "size": 28,
+            "type": "m"
+          }
+        },
+        "center_icon": {
+          "animated": true,
+          "file": "1f440/center_icon.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "cb3431f4e5b06985f896be3bdd14e2a8cd8d432ea36a0929b06c099f6f087dd4",
+          "size": 1759,
+          "thumb": {
+            "file": "1f440/center_icon.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "6956a9db0a49560a51ed808f16329282bf499f5177c137177321047f2e1eceab",
+            "size": 1754,
+            "type": "m"
+          }
+        },
+        "effect_animation": {
+          "animated": true,
+          "file": "1f440/effect_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "6a8a157e4f366649f3f8ff8fd4d174ac9a28fb1687bba24878712274e9d54826",
+          "size": 1437,
+          "thumb": {
+            "file": "1f440/effect_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "d9d039e6e989f2656dda2a88f0e89b93d41cc122bb4e9a517c1ee501da2c9fb2",
+            "size": 28,
+            "type": "m"
+          }
+        },
+        "select_animation": {
+          "animated": true,
+          "file": "1f440/select_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "17625264f51b54156e3edc9868f923d61e23bb8269ae9e068caa7ebef76dab18",
+          "size": 1787,
+          "thumb": {
+            "file": "1f440/select_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "412bed3a7bd38de752ae96f7714fbdd547a8ca37807048a266aa0ed3391b8b48",
+            "size": 2944,
+            "type": "m"
+          }
+        },
+        "static_icon": {
+          "animated": false,
+          "file": "1f440/static_icon.webp",
+          "image_size": {
+            "h": 72,
+            "w": 72
+          },
+          "mime_type": "image/webp",
+          "sha256": "39e4f55241be0eefbf8e22c4fe7714cc2fe422bbc63576f3620b1b69af4cbdfe",
+          "size": 1658
+        }
+      },
+      "title": "EYES"
     }
   ],
   "version": 1
