@@ -17,6 +17,7 @@ import sys
 import tempfile
 import urllib.request
 from datetime import datetime, timezone
+from fractions import Fraction
 
 from PIL import Image, ImageChops, ImageDraw, features
 
@@ -25,9 +26,10 @@ SOURCES = ROOT / 'sources'
 OUTPUT = ROOT / 'reactions'
 SLOTS = ('static_icon', 'appear_animation', 'select_animation', 'activate_animation',
          'effect_animation', 'around_animation', 'center_icon')
-FRAMES = dict(appear_animation=43, effect_animation=90, around_animation=90, center_icon=90)
+FRAMES = dict(appear_animation=43, effect_animation=90, around_animation=90)
 MOTION_LEAD = 6
 SOURCE_COMP = 'blah_source'
+REST_COMP = 'blah_rest'
 THUMB_SIZE = 128  # Compatible document thumbnail canvas; see README evidence.
 THUMB_TYPE = 'm'
 STATIC_SIZE = 72  # Measured iOS star_up/star_reaction_static_icon.webp.
@@ -43,16 +45,18 @@ def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
-def canonical(value):
-    """Six decimal places; no NaN, negative zero, or integral floats."""
+def canonical(value, precision=6):
+    """Six decimals (nine for rebased clocks); no NaN or integral floats."""
     if isinstance(value, float):
         require(math.isfinite(value), 'Non-finite number')
-        value = round(value, 6)
+        value = round(value, precision)
         return int(value) if value.is_integer() else value
     if isinstance(value, list):
-        return [canonical(x) for x in value]
+        return [canonical(x, precision) for x in value]
     if isinstance(value, dict):
-        return {k: canonical(v) for k, v in value.items()}
+        return {k: canonical(v, 9 if k == 'tm' and
+                             value.get('refId', '').startswith('blah_frozen_') else precision)
+                for k, v in value.items()}
     return value
 
 
@@ -178,36 +182,202 @@ def clean(node):
             if k not in {'nm', 'mn', 'ix', 'ln', 'cl', 'markers'}}
 
 
+def normalize_source(source):
+    """Remove identity merges only; preserve authored clocks and source bytes."""
+    result = copy.deepcopy(source)
+
+    def shapes(items):
+        kept, paths = [], 0
+        for item in items:
+            ty = item.get('ty')
+            if ty == 'gr':
+                item['it'], count = shapes(item['it'])
+                paths += count
+            elif ty in ('sh', 'el', 'rc'):
+                paths += 1
+            elif ty == 'mm':
+                require(paths <= 1, 'Unsupported merge combining multiple paths')
+                continue
+            elif ty not in ('fl', 'st', 'gf', 'tr', 'tm'):
+                # Unknown generators/modifiers cannot prove an identity merge.
+                paths += 2
+            kept.append(item)
+        return kept, paths
+
+    for comp in [result] + result.get('assets', []):
+        for layer in comp.get('layers', []):
+            if 'shapes' in layer:
+                layer['shapes'], _ = shapes(layer['shapes'])
+    return result
+
+
+def validate_source_normalizations(renderer_type=Renderer, library=None):
+    """Compare raw/normalized pixels at source resolution, in each chosen renderer."""
+    for entry in source_entries():
+        source = json.loads((SOURCES / entry['file']).read_bytes())
+        adapted = normalize_source(source)
+        if adapted == source:
+            continue
+        maximum, differing = 0, []
+        with renderer_type(source, library) as raw, renderer_type(adapted, library) as normalized:
+            for frame in range(int(source['ip']), int(source['op'])):
+                delta = ImageChops.difference(raw.render(frame, source['w']),
+                                             normalized.render(frame, source['w']))
+                difference = max(hi for lo, hi in delta.getextrema())
+                maximum = max(maximum, difference)
+                if difference:
+                    differing.append(frame)
+        print(f'{entry["codepoint"]}: raw/normalized {int(source["op"] - source["ip"])} frames '
+              f'at {source["w"]}x{source["h"]}; max RGBA difference {maximum}; '
+              f'differing frames {differing}', flush=True)
+        require(maximum == 0, 'Source normalization changed rendered pixels')
+
+
+def rest_frame(source):
+    """Noto's static start pose; unmarked sources start at zero."""
+    markers = [marker for marker in source.get('markers', []) if marker.get('cm') == 'rest']
+    require(len(markers) <= 1, 'Expected at most one rest marker')
+    frame = markers[0].get('tm') if markers else 0
+    require(type(frame) in (int, float) and math.isfinite(frame)
+            and int(frame) == frame and 0 <= frame < source['op'],
+            'Rest marker must be an integral frame in [0, op)')
+    return int(frame)
+
+
+def scalar_at(value, frame):
+    """Evaluate an authored scalar clock (linear, held or cubic Bezier keys)."""
+    def scalar(x):
+        return x[0] if isinstance(x, list) else x
+
+    if not value.get('a'):
+        return scalar(value['k'])
+    keys = value['k']
+    if frame <= keys[0]['t']:
+        return scalar(keys[0]['s'])
+    for start, end in zip(keys, keys[1:]):
+        if frame < end['t']:
+            a = scalar(start['s'])
+            if start.get('h'):
+                return a
+            b = scalar(start.get('e', end['s']))
+            progress = (frame - start['t']) / (end['t'] - start['t'])
+            if 'o' in start and 'i' in start:
+                def bezier(t, axis):
+                    return (3 * (1-t)**2 * t * scalar(start['o'][axis])
+                            + 3 * (1-t) * t*t * scalar(start['i'][axis]) + t**3)
+                lo, hi = 0.0, 1.0
+                for _ in range(50):
+                    mid = (lo + hi) / 2
+                    if bezier(mid, 'x') < progress:
+                        lo = mid
+                    else:
+                        hi = mid
+                progress = bezier((lo + hi) / 2, 'y')
+            return a + (b - a) * progress
+    return scalar(keys[-1]['s'])
+
+
+def frozen_remap_composition(source, assets, frame):
+    """Rebase authored remaps for a frozen pose in a short output composition.
+
+    rlottie clamps remapped seconds to the root duration, including authored tm
+    inside nested assets. Shift remapped seconds into the short output's range,
+    then restore an integral offset after the retained authored sr.
+    Keep native interpolation/rounding; the live source assets remain untouched.
+    """
+    by_id = {asset['id']: asset for asset in assets}
+
+    def add(layers):
+        name = f'blah_frozen_{len(assets)}'
+        require(name not in by_id, 'Reserved frozen composition ID')
+        asset = {'id': name, 'layers': layers}
+        assets.append(asset)
+        by_id[name] = asset
+        return name
+
+    def visit(ref, time):
+        layers = copy.deepcopy(by_id[ref]['layers'])
+        changed = False
+        for layer in layers:
+            if layer['ty'] != 0:
+                continue
+            remap = layer.get('tm')
+            if remap and remap.get('a'):
+                seconds = scalar_at(remap, time)
+                mapped = int(max(0, min(source['op'] - 1,
+                                       seconds * source['fr'])))
+            else:
+                mapped = time - layer.get('st', 0)
+            mapped = int(mapped / layer.get('sr', 1))
+            child = visit(layer['refId'], mapped)
+            if remap and remap.get('a'):
+                # Choose a whole-frame translation that remains integral after
+                # sr. Each renderer retains its own tm interpolation/rounding.
+                stretch = Fraction(str(layer.get('sr', 1)))
+                steps = max(0, math.floor(seconds * source['fr'] / stretch.numerator))
+                offset = steps * stretch.numerator / source['fr']
+                for key in remap['k']:
+                    for field in ('s', 'e'):
+                        if field in key:
+                            # Preserve the renderer's float32 key values across
+                            # translation, especially just below integer frames.
+                            key[field] = [C.c_float(value).value - offset for value in key[field]]
+                child = add([{'ty': 0, 'ind': 1, 'refId': child,
+                              'w': layer.get('w', source['w']), 'h': layer.get('h', source['h']),
+                              'ip': 0, 'op': source['op'], 'st': -steps * stretch.denominator,
+                              'ks': transform()}])
+                changed = True
+            if child != layer['refId']:
+                layer['refId'] = child
+                changed = True
+        return add(layers) if changed else ref
+
+    return visit(SOURCE_COMP, frame)
+
+
 def source_composition(source, frames, motion=False):
     """Keep nested composition clocks, visibility, parenting and mattes intact.
 
-    The motion layer's start time is the ONLY change to source playback time.
-    Rest layers hold source frame zero, including negative-start precompositions.
+    Motion layer start times rotate the native loop without editing source clocks.
+    Rest layers hold the marked pose, including negative-start precompositions.
     Two equal animated tm keys are intentional: rlottie ignores static tm.
     """
+    rest = rest_frame(source)
     assets = clean(source.get('assets', []))
-    require(all(a['id'] != SOURCE_COMP for a in assets), 'Reserved composition ID')
+    require(all(a['id'] not in (SOURCE_COMP, REST_COMP)
+                and not a['id'].startswith('blah_frozen_') for a in assets), 'Reserved composition ID')
     assets.append({'id': SOURCE_COMP, 'layers': clean(source['layers'])})
+    if rest:
+        # rlottie clamps tm to the output duration: a short appear/static cannot
+        # directly seek a later source frame. Freeze an offset wrapper at zero.
+        frozen = frozen_remap_composition(source, assets, rest) if frames < source['op'] else SOURCE_COMP
+        assets.append({'id': REST_COMP, 'layers': [{
+            'ty': 0, 'ind': 1, 'refId': frozen, 'w': source['w'], 'h': source['h'],
+            'ip': 0, 'op': source['op'], 'st': -rest, 'ks': transform()}]})
 
-    def layer(index, start, end, moving=False):
+    def layer(index, start, end, moving=False, source_start=0):
         result = {'ty': 0, 'ind': index, 'refId': SOURCE_COMP,
                   'w': source['w'], 'h': source['h'], 'ip': start, 'op': end,
-                  'st': start if moving else 0, 'ks': transform()}
+                  'st': start - source_start if moving else 0, 'ks': transform()}
         if end < frames:
             # Packaged rlottie includes a layer's op; iOS/tlottie exclude it.
             # Explicit held opacity makes hand-offs exclusive in all three.
             result['ks']['o'] = {'a': 1, 'k': [
                 {'t': 0, 's': [100], 'h': 1}, {'t': end, 's': [0]}]}
         if not moving:
+            result['refId'] = REST_COMP if rest else SOURCE_COMP
             result['tm'] = tween([(0, 0), (frames, 0)])
         return result
 
     if motion:
         end = MOTION_LEAD + source['op']
-        # Noto animations are loops. Close exactly as the source player does:
-        # after op-1 show frame zero, with no added easing or stretched motion.
-        layers = [layer(1, MOTION_LEAD, end, True), layer(2, 0, MOTION_LEAD),
+        split = end - rest
+        # Play r..op-1, then 0..r-1; the trailing hold closes exactly on r.
+        # Keep the zero-rest structure/ordering byte-identical to earlier builds.
+        layers = [layer(1, MOTION_LEAD, split, True, rest), layer(2, 0, MOTION_LEAD),
                   layer(3, end, frames)]
+        if rest:
+            layers.append(layer(4, split, end, True))
     else:
         layers = [layer(1, 0, frames)]
     return layers, assets
@@ -229,11 +399,12 @@ def normalized(source):
             'Source profile requires a square canvas, ip=0 and 60 fps')
     require(source['op'] > 0 and int(source['op']) == source['op'], 'Expected integral source duration')
     validate_compositions(source)
+    frame = rest_frame(source)
     # Measure the whole motion, including matte results, with the pinned renderer.
     # Use source resolution, not a thumbnail, for stable pixel bounds.
     boxes = []
     with Renderer(source) as renderer:
-        rest = renderer.render(0, source['w']).getbbox()
+        rest = renderer.render(frame, source['w']).getbbox()
         for frame in range(int(source['op'])):
             box = renderer.render(frame, source['w']).getbbox()
             if box:
@@ -252,7 +423,7 @@ def palette(source):
     # geometry that is hidden by a matte. Never use that as particle paint.
     from collections import Counter
     with Renderer(source) as renderer:
-        counts = Counter(pixel[:3] for pixel in renderer.render(0, 128).get_flattened_data()
+        counts = Counter(pixel[:3] for pixel in renderer.render(rest_frame(source), 128).get_flattened_data()
                          if pixel[3] >= 250)
     # Near-white eye/teeth paint disappears on light chat backgrounds. Prefer
     # the source's contrasting paints when available, without emoji branches.
@@ -312,13 +483,16 @@ def particles(source, large):
 
 
 def convert(source):
+    source = normalize_source(source)
     anchor, scale = normalized(source)
     result = {}
     for slot in ('appear_animation', 'select_animation', 'activate_animation', 'center_icon'):
-        moving = slot in ('select_animation', 'activate_animation')
+        moving = slot in ('select_animation', 'activate_animation', 'center_icon')
         frames = MOTION_LEAD + int(source['op']) + 1 if moving else FRAMES[slot]
         if slot == 'activate_animation':
             frames = max(frames, 61)  # Authored tilt must also finish at rest.
+        if slot == 'center_icon':
+            frames = max(frames, FRAMES['around_animation'])
         layers, assets = source_composition(source, frames, moving)
         size = scale * (0.55 if slot == 'center_icon' else 1)
         data = wrap(layers, frames, anchor, size)
@@ -332,17 +506,16 @@ def convert(source):
             for layer in data['layers'][:-1]:
                 if not layer.get('td'):
                     layer['ks']['o'] = tween([(0, 0), (6, 100)])
-        if slot == 'center_icon':
-            root['s'] = tween([(0, [size] * 2 + [100]),
-                               (12, [size * 1.08] * 2 + [100]),
-                               (30, [size] * 2 + [100])])
         if slot == 'activate_animation':
             root['r'] = tween([(0, 0), (18, -5), (36, 4), (60, 0)])
         result[slot] = canonical(data)
     result['around_animation'] = particles(source, False)
     result['effect_animation'] = particles(source, True)
-    still, assets = source_composition(source, 1)
-    static = wrap(still, 1, anchor, scale)
+    # A raster still has no duration contract. Retain the full source clock for
+    # authored remaps; keep zero-rest serialization/rendering unchanged.
+    still_frames = int(source['op']) + 1 if rest_frame(source) else 1
+    still, assets = source_composition(source, still_frames)
+    static = wrap(still, still_frames, anchor, scale)
     static['assets'] = assets
     with Renderer(static) as renderer:
         result['static_icon'] = renderer.render(0, STATIC_SIZE)
@@ -428,7 +601,7 @@ def validate(data, compressed_size):
             ty = node.get('ty')
             if isinstance(ty, int):
                 require(ty in (0, 3, 4), f'Forbidden layer type: {path}')
-                require(('tm' not in node or ty == 0) and node.get('sr', 1) == 1, f'Time remap/stretch: {path}')
+                require('tm' not in node or ty == 0, f'Time remap: {path}')
                 require(node.get('tt', 0) in (0, 1, 2), f'Only alpha/inverted alpha mattes permitted: {path}')
             elif isinstance(ty, str):
                 require(ty in {'gr', 'sh', 'fl', 'st', 'tr', 'el', 'rc', 'gf', 'tm'},
@@ -454,7 +627,10 @@ def validate_compositions(data):
         for i, layer in enumerate(layers):
             require(layer['ty'] in (0, 3, 4), 'Expected vector precomp/null/shape layer')
             require('parent' not in layer or layer['parent'] in ids, 'Missing parent')
-            require(layer.get('sr', 1) == 1, 'Unsupported layer stretch')
+            stretch = layer.get('sr', 1)
+            require(type(stretch) in (int, float) and math.isfinite(stretch) and stretch > 0,
+                    'Layer stretch must be positive and finite')
+            require(layer['ty'] == 0 or stretch == 1, 'Unsupported non-precomp layer stretch')
             if layer['ty'] == 0:
                 require(layer.get('refId') in by_id, 'Missing precomposition')
             if layer.get('tt'):
@@ -493,6 +669,7 @@ def validate_rendering(data, renderer_type=Renderer, library=None, visible=False
 
 
 def validate_tree(destination, renderer_type=Renderer, library=None):
+    validate_source_normalizations(renderer_type, library)
     for path in sorted(destination.glob('*/*.tgs')):
         blob = path.read_bytes()
         data = json.loads(gzip.decompress(blob))
@@ -543,29 +720,58 @@ def validate_source_motion(destination, renderer_type=Renderer, library=None):
         source = json.loads((SOURCES / entry['file']).read_bytes())
         # Compare at source canvas geometry, independently of normalization and
         # its renderer-specific matte rasterization/rounding.
+        rest = rest_frame(source)
         with renderer_type(source, library) as original:
             poses = [original.render(f, 128).tobytes() for f in range(int(source['op']))]
-        for slot in ('select_animation', 'activate_animation'):
+        source = normalize_source(source)
+        anchor, scale = normalized(source)
+        for slot in ('select_animation', 'activate_animation', 'center_icon'):
             data = json.loads(gzip.decompress((destination / entry['codepoint'] / (slot + '.tgs')).read_bytes()))
-            motion = data['layers'][0]
-            require(motion['refId'] == SOURCE_COMP and motion['ip'] == motion['st'] == MOTION_LEAD
-                    and motion['op'] == MOTION_LEAD + source['op']
-                    and motion.get('sr', 1) == 1 and 'tm' not in motion,
-                    f'{entry["codepoint"]}/{slot}: source clock must have slope 1, offset {MOTION_LEAD}')
+            end = MOTION_LEAD + source['op']
+            segments = [(MOTION_LEAD, end - rest, MOTION_LEAD - rest)]
+            if rest:
+                segments.append((end - rest, end, end - rest))
+            motion = [layer for layer in data['layers'] if layer['ty'] == 0 and 'tm' not in layer]
+            require(len(motion) == len(segments) and all(
+                layer['refId'] == SOURCE_COMP
+                and (layer['ip'], layer['op'], layer['st']) == segment
+                and layer.get('sr', 1) == 1 for layer, segment in zip(motion, segments)),
+                f'{entry["codepoint"]}/{slot}: rotated source clocks must have slope 1')
             expected = source.get('assets', []) + [{'id': SOURCE_COMP, 'layers': source['layers']}]
-            require(list(key_times(expected)) == list(key_times(data['assets'])),
+            embedded = data['assets'][:len(expected)]
+            require(list(key_times(expected)) == list(key_times(embedded)),
                     f'{entry["codepoint"]}/{slot}: source keyframe times changed')
-            require(canonical(clean(expected)) == data['assets'], 'Source composition changed')
-            require(data['op'] >= MOTION_LEAD + source['op'] + 1, 'Source motion truncated')
+            require(canonical(clean(expected)) == embedded, 'Source composition changed')
+            minimum = {'select_animation': 1, 'activate_animation': 61,
+                       'center_icon': FRAMES['around_animation']}[slot]
+            require(data['op'] == max(MOTION_LEAD + source['op'] + 1, minimum),
+                    f'{entry["codepoint"]}/{slot}: wrong frame count')
+            if slot == 'center_icon':
+                require(data['layers'][-1]['ks'] == canonical(transform((256, 256), anchor, scale * .55)),
+                        'Center must retain constant 55% scale and rest anchor')
             # Remove ONLY the outer geometric transform (including authored tilt).
             data['layers'][-1]['ks'] = transform()
             data['w'], data['h'] = source['w'], source['h']
             with renderer_type(data, library) as converted:
-                for f, pose in enumerate(poses):
-                    require(converted.render(f + MOTION_LEAD, 128).tobytes() == pose,
-                            f'{entry["codepoint"]}/{slot}: source pose/timing differs at frame {f}')
+                for f in range(data['op']):
+                    source_frame = ((rest + f - MOTION_LEAD) % len(poses)
+                                    if MOTION_LEAD <= f < end else rest)
+                    require(converted.render(f, 128).tobytes() == poses[source_frame],
+                            f'{entry["codepoint"]}/{slot}: output frame {f} differs from source frame {source_frame}')
+        # Ignore only the designed entrance transform/fade to prove its frozen
+        # source pose, including when r lies beyond the short output duration.
+        appear = json.loads(gzip.decompress((destination / entry['codepoint'] / 'appear_animation.tgs').read_bytes()))
+        appear['layers'][-1]['ks'] = transform()
+        for layer in appear['layers'][:-1]:
+            layer['ks']['o'] = prop(100)
+        appear['w'], appear['h'] = source['w'], source['h']
+        with renderer_type(appear, library) as converted:
+            for f in range(appear['op']):
+                require(converted.render(f, 128).tobytes() == poses[rest],
+                        f'{entry["codepoint"]}/appear_animation: frozen rest differs at frame {f}')
         print(f'OK {entry["codepoint"]}: source keyframe clock slope 1; '
-              f'all {source["op"]} source poses exact in select/activate', flush=True)
+              f'all {source["op"]} rotated source poses exact in select/activate/center; '
+              f'rest f{rest} holds and frozen appear exact', flush=True)
 
 
 def validate_thumbnails(destination):
@@ -575,6 +781,11 @@ def validate_thumbnails(destination):
         for slot, record in reaction['slots'].items():
             if slot == 'static_icon':
                 require('thumb' not in record, 'Static icon must not have a thumb')
+                select = destination / reaction['slots']['select_animation']['file']
+                data = json.loads(gzip.decompress(select.read_bytes()))
+                with Image.open(destination / record['file']) as still, Renderer(data) as renderer:
+                    require(still.convert('RGBA').tobytes() == renderer.render(0, STATIC_SIZE).tobytes(),
+                            f'Static icon differs from select rest: {record["file"]}')
                 continue
             thumb = record['thumb']
             source = destination / record['file']
@@ -634,6 +845,22 @@ def preview_thumbnails(destination):
         print(f'Thumbnail preview: {path}', flush=True)
 
 
+def build():
+    # Validate the complete staged tree before replacing any existing output.
+    with tempfile.TemporaryDirectory(prefix='.blah-reactions-', dir=ROOT) as tmp:
+        staged, backup = Path(tmp) / 'reactions', Path(tmp) / 'previous'
+        generate(staged)
+        validate_tree(staged)
+        if OUTPUT.exists():
+            OUTPUT.rename(backup)
+        try:
+            staged.rename(OUTPUT)
+        except OSError:
+            if backup.exists():
+                backup.rename(OUTPUT)
+            raise
+
+
 def check():
     with tempfile.TemporaryDirectory(prefix='blah-reactions-') as tmp:
         dest = Path(tmp)
@@ -678,8 +905,9 @@ def preview(destination, renderer_type=Renderer, library=None):
                  'activate-outgoing-ios': [], 'activate-incoming-ios': []}
         appear_frames = data['appear_animation']['op']
         picker_frames = appear_frames + data['select_animation']['op']
-        for f in range(max(picker_frames, data['activate_animation']['op'], data['around_animation']['op'])):
-            if f < FRAMES['around_animation']:
+        bubble_frames = max(data['center_icon']['op'], data['around_animation']['op'])
+        for f in range(max(picker_frames, data['activate_animation']['op'], bubble_frames)):
+            if f < bubble_frames:
                 for client, around_size in [('tweb', 80), ('ios', 120)]:
                     im = Image.new('RGBA', (160, 160), '#eef1f6')
                     if client == 'ios':
@@ -711,7 +939,10 @@ def preview(destination, renderer_type=Renderer, library=None):
         composite = Image.new('RGB', (1200, len(clips) * 220), '#eef1f6')
         draw = ImageDraw.Draw(composite)
         for row, (name, frames) in enumerate(clips.items()):
-            indices = [0, 12, 24, appear_frames - 1, appear_frames, len(frames) - 1] if name == 'picker' else [0, 10, 20, 35, 50, len(frames) - 1]
+            # Keep burst onset/peak samples, then show the complete icon motion.
+            indices = ([0, 12, 24, appear_frames - 1, appear_frames, len(frames) - 1]
+                       if name == 'picker' else
+                       [0, 10, 20, len(frames) // 2, len(frames) * 3 // 4, len(frames) - 1])
             for col, f in enumerate(indices):
                 im = frames[f].copy()
                 im.thumbnail((196, 180))
@@ -904,8 +1135,7 @@ def main():
     if args.command == 'fetch':
         fetch(args.codepoint, args.title)
     elif args.command == 'build':
-        generate(OUTPUT)
-        validate_tree(OUTPUT)
+        build()
     elif args.command == 'check':
         check()
     elif args.command == 'verify-renderer':

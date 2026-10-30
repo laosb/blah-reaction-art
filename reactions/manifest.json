@@ -77,8 +77,8 @@
             "w": 512
           },
           "mime_type": "application/x-tgsticker",
-          "sha256": "bd90c2bceb9de789d0f4cc3a5b7457c67c173ee5db58e5cd27004bea10f15341",
-          "size": 11563,
+          "sha256": "7be143e50510e52e32266e82ac4e36271a8b42c00999402cd6f5328c7e8a2613",
+          "size": 11589,
           "thumb": {
             "file": "1f44d/center_icon.thumb.webp",
             "image_size": {
@@ -226,8 +226,8 @@
             "w": 512
           },
           "mime_type": "application/x-tgsticker",
-          "sha256": "a162a8ecd3f29c8c753fd50ee93ef93f059b2a732ffbf38700f500ba291bb2dc",
-          "size": 11526,
+          "sha256": "9e135cf42432820a994735a39d6444fc5a7cf92f193a3fe23de576b3f6910756",
+          "size": 11552,
           "thumb": {
             "file": "1f44e/center_icon.thumb.webp",
             "image_size": {
@@ -309,8 +309,8 @@
             "w": 512
           },
           "mime_type": "application/x-tgsticker",
-          "sha256": "7e2dc088a6b4b6ce6984cd5f83a2ab9dc84e48dd1faf9cb0f9ca429b56e6a9d4",
-          "size": 1813,
+          "sha256": "970e3f49c95d24e5f6b8839af07e0535ff63350d5a78437a161fc1666314823c",
+          "size": 1853,
           "thumb": {
             "file": "2764/activate_animation.thumb.webp",
             "image_size": {
@@ -318,8 +318,8 @@
               "w": 128
             },
             "mime_type": "image/webp",
-            "sha256": "5440d3ffe79a7fcabb06256e56de55dc9c937e6dc0c473c5c5bfb053b8495df3",
-            "size": 2342,
+            "sha256": "c1a44f2d7b22e4364468cd13d5c1d853c84119d171f97b696ebbc8e880f9b853",
+            "size": 2310,
             "type": "m"
           }
         },
@@ -331,8 +331,8 @@
             "w": 512
           },
           "mime_type": "application/x-tgsticker",
-          "sha256": "a1202628442e9eca88a33cf5156f8b40237ac9f1f28c28395d98a6583f709991",
-          "size": 1786,
+          "sha256": "5dd854295cd2de1ef4c0fbfff9b3910c3e209f242d05fa49219f38f7d9fdbd3d",
+          "size": 1802,
           "thumb": {
             "file": "2764/appear_animation.thumb.webp",
             "image_size": {
@@ -340,8 +340,8 @@
               "w": 128
             },
             "mime_type": "image/webp",
-            "sha256": "5440d3ffe79a7fcabb06256e56de55dc9c937e6dc0c473c5c5bfb053b8495df3",
-            "size": 2342,
+            "sha256": "c1a44f2d7b22e4364468cd13d5c1d853c84119d171f97b696ebbc8e880f9b853",
+            "size": 2310,
             "type": "m"
           }
         },
@@ -375,8 +375,8 @@
             "w": 512
           },
           "mime_type": "application/x-tgsticker",
-          "sha256": "0c42f09898ca061cec665ff3010fafce0b6a289921f6c182a2af0ae1da905068",
-          "size": 1763,
+          "sha256": "ab145dde800e2568271c006c91232e3c5b4d2fde2e2353cc90bca51f40d8528c",
+          "size": 1832,
           "thumb": {
             "file": "2764/center_icon.thumb.webp",
             "image_size": {
@@ -384,8 +384,8 @@
               "w": 128
             },
             "mime_type": "image/webp",
-            "sha256": "5005b01d14dd773820d767123c358bb03c20fb431870105ff62bda5fdcc58fd2",
-            "size": 1360,
+            "sha256": "bea65441167ce73e1220d5237f6a78a77025e5c5a7e4e74334dcf00fb4f61cd3",
+            "size": 1364,
             "type": "m"
           }
         },
@@ -419,8 +419,8 @@
             "w": 512
           },
           "mime_type": "application/x-tgsticker",
-          "sha256": "243b37c461c24a4e07ddd0c60c0d1de95829aecfd5b8614aa7131b62413b631e",
-          "size": 1790,
+          "sha256": "58f3cc5110cab768b4b9e0d48d1a9baba241ad444281fc0fd96f61db4723a849",
+          "size": 1832,
           "thumb": {
             "file": "2764/select_animation.thumb.webp",
             "image_size": {
@@ -428,8 +428,8 @@
               "w": 128
             },
             "mime_type": "image/webp",
-            "sha256": "5440d3ffe79a7fcabb06256e56de55dc9c937e6dc0c473c5c5bfb053b8495df3",
-            "size": 2342,
+            "sha256": "c1a44f2d7b22e4364468cd13d5c1d853c84119d171f97b696ebbc8e880f9b853",
+            "size": 2310,
             "type": "m"
           }
         },
@@ -441,8 +441,8 @@
             "w": 72
           },
           "mime_type": "image/webp",
-          "sha256": "02320b626d8382c1ebb03cdd5cabea720b973966f9cbcf665d4e35bd4addd6c3",
-          "size": 1354
+          "sha256": "1b0eb5caf7ca4efc0dc3d5768cc5adc8feb66ca4e00b12856ad5a01ad066e5e1",
+          "size": 1376
         }
       },
       "title": "Red Heart"
@@ -458,8 +458,8 @@
             "w": 512
           },
           "mime_type": "application/x-tgsticker",
-          "sha256": "7c40ee788f34d8f4df0f6b6b5d96b15ec74cf1685089536b6e3e539c55c16159",
-          "size": 18589,
+          "sha256": "83973e114b1eb49b066cbc43044ea504dd982019830c1116021e7314338f3560",
+          "size": 18631,
           "thumb": {
             "file": "1f4af/activate_animation.thumb.webp",
             "image_size": {
@@ -480,8 +480,8 @@
             "w": 512
           },
           "mime_type": "application/x-tgsticker",
-          "sha256": "c9300584e6113958cb6024d880748f1079ddd8aea47e71ca058afe5de265f4fe",
-          "size": 18563,
+          "sha256": "ab6bf36bd0d5ba68c4ebee0d2065b02e97dee20f32504711a40619b90c731935",
+          "size": 18668,
           "thumb": {
             "file": "1f4af/appear_animation.thumb.webp",
             "image_size": {
@@ -524,8 +524,8 @@
             "w": 512
           },
           "mime_type": "application/x-tgsticker",
-          "sha256": "d64bd97f2104f8911ab7c4b86f8d3b20b07156212ac2f3676ff44fd5cac4ec15",
-          "size": 18542,
+          "sha256": "d771c573a4d6384b69371e5dc6a20c66074f0635f5c8b03688ba47d901fa8422",
+          "size": 18606,
           "thumb": {
             "file": "1f4af/center_icon.thumb.webp",
             "image_size": {
@@ -568,8 +568,8 @@
             "w": 512
           },
           "mime_type": "application/x-tgsticker",
-          "sha256": "a250e2c76881bf5d5c3d28c5378bce546ebbabdea973c71371be66a98cacbb64",
-          "size": 18565,
+          "sha256": "7484d9aa526826526068ddc33fc3e40bdb9ee06e6ba0e08662fe4bda549d3432",
+          "size": 18607,
           "thumb": {
             "file": "1f4af/select_animation.thumb.webp",
             "image_size": {
@@ -607,8 +607,8 @@
             "w": 512
           },
           "mime_type": "application/x-tgsticker",
-          "sha256": "730de7d3b5e6f08d26072589d8b7bb4f616fe17bb12295cebc0454ddd865c834",
-          "size": 13654,
+          "sha256": "f1c1b3037a645f3f68ab87d836645e32f0f492c9447bb0b17202cc455ff42e1c",
+          "size": 13691,
           "thumb": {
             "file": "1f923/activate_animation.thumb.webp",
             "image_size": {
@@ -616,8 +616,8 @@
               "w": 128
             },
             "mime_type": "image/webp",
-            "sha256": "98b4294a8e1fe67153f4a807db096842944032eb469432a0a433938064907261",
-            "size": 6840,
+            "sha256": "3508611497a93c27944388ee598696e854352fd9100dc70837cd042df17b9b46",
+            "size": 6942,
             "type": "m"
           }
         },
@@ -629,8 +629,8 @@
             "w": 512
           },
           "mime_type": "application/x-tgsticker",
-          "sha256": "596e829bb4472802c78ed2a5dadfe76f0fe0180d7a4aea6d3e29b02280821b7a",
-          "size": 13620,
+          "sha256": "bd088ceae0ea44b14c4b638b82cfe9a55ce7b59dede7660c8bf1dd593259f18f",
+          "size": 13645,
           "thumb": {
             "file": "1f923/appear_animation.thumb.webp",
             "image_size": {
@@ -638,8 +638,8 @@
               "w": 128
             },
             "mime_type": "image/webp",
-            "sha256": "98b4294a8e1fe67153f4a807db096842944032eb469432a0a433938064907261",
-            "size": 6840,
+            "sha256": "3508611497a93c27944388ee598696e854352fd9100dc70837cd042df17b9b46",
+            "size": 6942,
             "type": "m"
           }
         },
@@ -673,8 +673,8 @@
             "w": 512
           },
           "mime_type": "application/x-tgsticker",
-          "sha256": "c031ddcbaa2f603a355b4afe4b53e0e06f81546548262abfff240cc50e0deb2b",
-          "size": 13600,
+          "sha256": "92b907eac5335a6708555a2d4bbbd107335b5841b3587b334e9d71203d461d54",
+          "size": 13670,
           "thumb": {
             "file": "1f923/center_icon.thumb.webp",
             "image_size": {
@@ -682,8 +682,8 @@
               "w": 128
             },
             "mime_type": "image/webp",
-            "sha256": "f798345af03965afdd55ac7b1e056ef094fc407fb46acf1c2d5d3bb93bf8ef9f",
-            "size": 3550,
+            "sha256": "bc4c5fbc15a4de65079098dbc95ad23b5714cdce1c536ccd2fa17d5efb3992db",
+            "size": 3600,
             "type": "m"
           }
         },
@@ -717,8 +717,8 @@
             "w": 512
           },
           "mime_type": "application/x-tgsticker",
-          "sha256": "704d02d98b7a45c87763861da5662b7d5e7dfeaca2d07cdf996111990f9ec181",
-          "size": 13633,
+          "sha256": "594e244325571c05b79b3c718509baf900098572b4c53929bc0e0f9af7c7378f",
+          "size": 13670,
           "thumb": {
             "file": "1f923/select_animation.thumb.webp",
             "image_size": {
@@ -726,8 +726,8 @@
               "w": 128
             },
             "mime_type": "image/webp",
-            "sha256": "98b4294a8e1fe67153f4a807db096842944032eb469432a0a433938064907261",
-            "size": 6840,
+            "sha256": "3508611497a93c27944388ee598696e854352fd9100dc70837cd042df17b9b46",
+            "size": 6942,
             "type": "m"
           }
         },
@@ -739,8 +739,8 @@
             "w": 72
           },
           "mime_type": "image/webp",
-          "sha256": "5fa8bd6b9ff34e55c668755dc87ba9375c9b00592b9c002506d19986a24d330c",
-          "size": 3668
+          "sha256": "3ba9b9c052f37fd312947234bd11277eda189c057b157e011316f2ca41551709",
+          "size": 3672
         }
       },
       "title": "ROLLING ON THE FLOOR LAUGHING"
@@ -822,8 +822,8 @@
             "w": 512
           },
           "mime_type": "application/x-tgsticker",
-          "sha256": "cb3431f4e5b06985f896be3bdd14e2a8cd8d432ea36a0929b06c099f6f087dd4",
-          "size": 1759,
+          "sha256": "ceff52c74cda2f0c72969d6d0f8fa3e843834368f5c491abed903cc503aaca48",
+          "size": 1786,
           "thumb": {
             "file": "1f440/center_icon.thumb.webp",
             "image_size": {
@@ -893,6 +893,453 @@
         }
       },
       "title": "EYES"
+    },
+    {
+      "reaction": "🥳",
+      "slots": {
+        "activate_animation": {
+          "animated": true,
+          "file": "1f973/activate_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "7a024dc8955f24822614e6a31a928803d9b8d441436456584c99c81b64db5ef9",
+          "size": 9770,
+          "thumb": {
+            "file": "1f973/activate_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "85af7991b163ad27257bf44bd9a8f0303cdabe9edecb7a5d5a1155323c6f5485",
+            "size": 7274,
+            "type": "m"
+          }
+        },
+        "appear_animation": {
+          "animated": true,
+          "file": "1f973/appear_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "3bec9d477d79198999e21a9a32582bcc070f9f957a78a07e5f133a0972442767",
+          "size": 9733,
+          "thumb": {
+            "file": "1f973/appear_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "85af7991b163ad27257bf44bd9a8f0303cdabe9edecb7a5d5a1155323c6f5485",
+            "size": 7274,
+            "type": "m"
+          }
+        },
+        "around_animation": {
+          "animated": true,
+          "file": "1f973/around_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "209ef1153a865d47885530a7f454a499f7e401836acbd5ca20339f28abee3e2e",
+          "size": 1125,
+          "thumb": {
+            "file": "1f973/around_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "d9d039e6e989f2656dda2a88f0e89b93d41cc122bb4e9a517c1ee501da2c9fb2",
+            "size": 28,
+            "type": "m"
+          }
+        },
+        "center_icon": {
+          "animated": true,
+          "file": "1f973/center_icon.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "0ed1834c83b20414d60f3b27d596952db484a65bc369a69ad661c1f084a41d35",
+          "size": 9749,
+          "thumb": {
+            "file": "1f973/center_icon.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "abc7ca298cd2e735d8f34d2eff6ba966cad6f50f491e692a09e01a46b9753c8d",
+            "size": 3674,
+            "type": "m"
+          }
+        },
+        "effect_animation": {
+          "animated": true,
+          "file": "1f973/effect_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "e8dca804e0587f2381cc2a5e52d9caaf195cf73aba0a4d974e1760522f00c58f",
+          "size": 1444,
+          "thumb": {
+            "file": "1f973/effect_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "d9d039e6e989f2656dda2a88f0e89b93d41cc122bb4e9a517c1ee501da2c9fb2",
+            "size": 28,
+            "type": "m"
+          }
+        },
+        "select_animation": {
+          "animated": true,
+          "file": "1f973/select_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "eb1ddee8ce8a32e6c2148c8c1aa4bc4a8f7286ee656c5a91b36238b993681f22",
+          "size": 9750,
+          "thumb": {
+            "file": "1f973/select_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "85af7991b163ad27257bf44bd9a8f0303cdabe9edecb7a5d5a1155323c6f5485",
+            "size": 7274,
+            "type": "m"
+          }
+        },
+        "static_icon": {
+          "animated": false,
+          "file": "1f973/static_icon.webp",
+          "image_size": {
+            "h": 72,
+            "w": 72
+          },
+          "mime_type": "image/webp",
+          "sha256": "21a192c54f561f955b75935ec122f84195884b2a972aaf9aaaa55b8fe24c47e6",
+          "size": 3718
+        }
+      },
+      "title": "Partying Face"
+    },
+    {
+      "reaction": "🫪",
+      "slots": {
+        "activate_animation": {
+          "animated": true,
+          "file": "1faea/activate_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "afe47381141e80db1b70ee8c9cbc1efd9f3f8c916dd65f0390eb725382a41e90",
+          "size": 4627,
+          "thumb": {
+            "file": "1faea/activate_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "3f0eae941a7ae7736012316701dd7f23874edd7dc2bc75bcd391778ec6a99d0d",
+            "size": 5638,
+            "type": "m"
+          }
+        },
+        "appear_animation": {
+          "animated": true,
+          "file": "1faea/appear_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "66bb6ac59ff94fc2e6e28d61f86afcbcbc955b93c9466155ea83387b14d0b93e",
+          "size": 4575,
+          "thumb": {
+            "file": "1faea/appear_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "3f0eae941a7ae7736012316701dd7f23874edd7dc2bc75bcd391778ec6a99d0d",
+            "size": 5638,
+            "type": "m"
+          }
+        },
+        "around_animation": {
+          "animated": true,
+          "file": "1faea/around_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "5ef0ec23b2da139f0b1cc64d49ead9549adc0c38c57e92291698a5d02d2c3e73",
+          "size": 1126,
+          "thumb": {
+            "file": "1faea/around_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "d9d039e6e989f2656dda2a88f0e89b93d41cc122bb4e9a517c1ee501da2c9fb2",
+            "size": 28,
+            "type": "m"
+          }
+        },
+        "center_icon": {
+          "animated": true,
+          "file": "1faea/center_icon.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "957b7f8c0370e0706a0689721b2181878329bcaa446fa0d9d562b73a4f65f544",
+          "size": 4604,
+          "thumb": {
+            "file": "1faea/center_icon.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "88d03a2e736b5c914f53f37b8c3020970816540b215b46a1af9f6c55b0e98983",
+            "size": 3058,
+            "type": "m"
+          }
+        },
+        "effect_animation": {
+          "animated": true,
+          "file": "1faea/effect_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "5f681fb3414106082290ae71202168bca8b820ee90eeba7bb74c086d139bc0c6",
+          "size": 1447,
+          "thumb": {
+            "file": "1faea/effect_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "d9d039e6e989f2656dda2a88f0e89b93d41cc122bb4e9a517c1ee501da2c9fb2",
+            "size": 28,
+            "type": "m"
+          }
+        },
+        "select_animation": {
+          "animated": true,
+          "file": "1faea/select_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "b18c5c60ff6eccc6e25158b640c4826984fa5763b12071a0b9a5d7f880e1bb89",
+          "size": 4605,
+          "thumb": {
+            "file": "1faea/select_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "3f0eae941a7ae7736012316701dd7f23874edd7dc2bc75bcd391778ec6a99d0d",
+            "size": 5638,
+            "type": "m"
+          }
+        },
+        "static_icon": {
+          "animated": false,
+          "file": "1faea/static_icon.webp",
+          "image_size": {
+            "h": 72,
+            "w": 72
+          },
+          "mime_type": "image/webp",
+          "sha256": "408567d534391293e71d6bc9c56735c5279be60e7711bca62ccec60907cfdcaa",
+          "size": 3028
+        }
+      },
+      "title": "Distorted Face"
+    },
+    {
+      "reaction": "😜",
+      "slots": {
+        "activate_animation": {
+          "animated": true,
+          "file": "1f61c/activate_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "e279d6ca425f59de9618c356bbd9970dc033453259ecde5f5b4861d665e07dcc",
+          "size": 8021,
+          "thumb": {
+            "file": "1f61c/activate_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "f5976eeb88f68848849783a17d5f8f0094e9f697d7bba2cd352d231bd404b0cf",
+            "size": 5574,
+            "type": "m"
+          }
+        },
+        "appear_animation": {
+          "animated": true,
+          "file": "1f61c/appear_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "a6e3a784c495287fe5fe58d17234c0c985214fe22b51ff622437e7aa5ce051b7",
+          "size": 7973,
+          "thumb": {
+            "file": "1f61c/appear_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "f5976eeb88f68848849783a17d5f8f0094e9f697d7bba2cd352d231bd404b0cf",
+            "size": 5574,
+            "type": "m"
+          }
+        },
+        "around_animation": {
+          "animated": true,
+          "file": "1f61c/around_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "f5a68edb309e5dd3d9c3d2308131f7243e880398c3fa4e7cb7ffa9ffed6555dd",
+          "size": 1128,
+          "thumb": {
+            "file": "1f61c/around_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "d9d039e6e989f2656dda2a88f0e89b93d41cc122bb4e9a517c1ee501da2c9fb2",
+            "size": 28,
+            "type": "m"
+          }
+        },
+        "center_icon": {
+          "animated": true,
+          "file": "1f61c/center_icon.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "a2614893e96f754d854fdc02a76640a37b9fb4c8105131f3c74ff287b693665a",
+          "size": 8000,
+          "thumb": {
+            "file": "1f61c/center_icon.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "d9fd9090d72679e4a5a545d8fc5360815ee732c0b87aba9a9cdd92c11e050b13",
+            "size": 2908,
+            "type": "m"
+          }
+        },
+        "effect_animation": {
+          "animated": true,
+          "file": "1f61c/effect_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "d9af61d5095e9202753df5c1b0dec35b92abe4318e94f17eee5d51fdc53f2f68",
+          "size": 1452,
+          "thumb": {
+            "file": "1f61c/effect_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "d9d039e6e989f2656dda2a88f0e89b93d41cc122bb4e9a517c1ee501da2c9fb2",
+            "size": 28,
+            "type": "m"
+          }
+        },
+        "select_animation": {
+          "animated": true,
+          "file": "1f61c/select_animation.tgs",
+          "image_size": {
+            "h": 512,
+            "w": 512
+          },
+          "mime_type": "application/x-tgsticker",
+          "sha256": "fe7a2295d71ec84879f0715fd968b163b4e49e67bbe9338031c9cfdc29b508cf",
+          "size": 7999,
+          "thumb": {
+            "file": "1f61c/select_animation.thumb.webp",
+            "image_size": {
+              "h": 128,
+              "w": 128
+            },
+            "mime_type": "image/webp",
+            "sha256": "f5976eeb88f68848849783a17d5f8f0094e9f697d7bba2cd352d231bd404b0cf",
+            "size": 5574,
+            "type": "m"
+          }
+        },
+        "static_icon": {
+          "animated": false,
+          "file": "1f61c/static_icon.webp",
+          "image_size": {
+            "h": 72,
+            "w": 72
+          },
+          "mime_type": "image/webp",
+          "sha256": "394df0b64e44d43da71e3bc71027720e9b063e1fdc132b96ad7ecdb1f2b763ef",
+          "size": 2974
+        }
+      },
+      "title": "Winking Face with Tongue"
     }
   ],
   "version": 1

@@ -8,11 +8,17 @@ The full license, including its warranty disclaimer, is in LICENSE-artwork.
 Original download URLs, retrieval dates and SHA-256 hashes: sources/manifest.json.
 
 Adapted for Blah default reactions by blah-reaction-art contributors (2026).
-Changes: normalized and centered on 512 x 512 canvases; preserved native-speed motion with a lead-in hold; froze
-resting poses; added entrance scaling/fades, activation rotation and center
-pulse; added separate palette-derived circle/diamond particle effects;
-removed exporter metadata and redundant defaults; retained vector precompositions, source time remapping and alpha/inverted-alpha track mattes;
+Changes: normalized and centered on 512 x 512 canvases using the source's "rest"
+marker (frame 0 when absent); rotated native-speed loops to that pose after a lead-in
+hold; froze it for static icons, entrances and holds; center uses 55% scale;
+added entrance scaling/fades, activation rotation and separate palette-derived
+circle/diamond particle effects; rebased copied clocks for short frozen outputs
+while retaining live source clocks, interpolation and stretch;
+removed exporter metadata, redundant defaults and identity merge operators; retained
+vector precompositions, source time remapping/stretch and alpha/inverted-alpha track mattes;
 encoded as deterministic gzip TGS and lossless transparent WebP.
+Noto's FAQ identifies the static "start" frame as keyframe "rest" (link above).
+Source markers are consumed during conversion and omitted from outputs.
 The resulting reactions/ artwork and these artwork contributions are also
 provided under CC BY 4.0. No endorsement by Google or Telegram is implied.
 

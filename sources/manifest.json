@@ -4,7 +4,7 @@
       "codepoint": "1f44d",
       "file": "1f44d.json",
       "reaction": "👍",
-      "retrieved_at": "2026-10-29",
+      "retrieved_at": "2026-10-30",
       "sha256": "a5803c4978c0760977aa08033ab0abcb5023945a47008261cd405815fc947698",
       "title": "Thumbs Up",
       "url": "https://fonts.gstatic.com/s/e/notoemoji/latest/1f44d/lottie.json"
@@ -13,7 +13,7 @@
       "codepoint": "1f44e",
       "file": "1f44e.json",
       "reaction": "👎",
-      "retrieved_at": "2026-10-29",
+      "retrieved_at": "2026-10-30",
       "sha256": "3c491a560e58a70f20c67f506a1228b9eeb03519f72c7e5050a1f35a8deee9f4",
       "title": "Thumbs Down",
       "url": "https://fonts.gstatic.com/s/e/notoemoji/latest/1f44e/lottie.json"
@@ -22,7 +22,7 @@
       "codepoint": "2764",
       "file": "2764.json",
       "reaction": "❤",
-      "retrieved_at": "2026-10-29",
+      "retrieved_at": "2026-10-30",
       "sha256": "7925790edd7ec4a4da6ccb9491c61a2e03705182e7db263f12d8e46a8fcddb79",
       "title": "Red Heart",
       "url": "https://fonts.gstatic.com/s/e/notoemoji/latest/2764_fe0f/lottie.json"
@@ -31,7 +31,7 @@
       "codepoint": "1f4af",
       "file": "1f4af.json",
       "reaction": "💯",
-      "retrieved_at": "2026-10-29",
+      "retrieved_at": "2026-10-30",
       "sha256": "8e48b464d7473e94e7b744a1774f4c3b7c7a6892faee8667f9e555ddf5160798",
       "title": "HUNDRED POINTS SYMBOL",
       "url": "https://fonts.gstatic.com/s/e/notoemoji/latest/1f4af/lottie.json"
@@ -40,7 +40,7 @@
       "codepoint": "1f923",
       "file": "1f923.json",
       "reaction": "🤣",
-      "retrieved_at": "2026-10-29",
+      "retrieved_at": "2026-10-30",
       "sha256": "da5832ec41e5b4b60a2668891bd0670c1495022096839b0b92d943cb85008aea",
       "title": "ROLLING ON THE FLOOR LAUGHING",
       "url": "https://fonts.gstatic.com/s/e/notoemoji/latest/1f923/lottie.json"
@@ -49,10 +49,37 @@
       "codepoint": "1f440",
       "file": "1f440.json",
       "reaction": "👀",
-      "retrieved_at": "2026-10-29",
+      "retrieved_at": "2026-10-30",
       "sha256": "0dfcabf677099ebe20efacf98f680cf3aeac6f7b647228acda73917c65e2120f",
       "title": "EYES",
       "url": "https://fonts.gstatic.com/s/e/notoemoji/latest/1f440/lottie.json"
+    },
+    {
+      "codepoint": "1f973",
+      "file": "1f973.json",
+      "reaction": "🥳",
+      "retrieved_at": "2026-10-30",
+      "sha256": "6cc02b10d9471287c26b188d5a9b64899da86543fde29b60ed5e5caf69776c3d",
+      "title": "Partying Face",
+      "url": "https://fonts.gstatic.com/s/e/notoemoji/latest/1f973/lottie.json"
+    },
+    {
+      "codepoint": "1faea",
+      "file": "1faea.json",
+      "reaction": "🫪",
+      "retrieved_at": "2026-10-30",
+      "sha256": "a2b622d1e502755fb39f6aa68dc23d3adcfa6aa3c989d1b7513ef71f78783b05",
+      "title": "Distorted Face",
+      "url": "https://fonts.gstatic.com/s/e/notoemoji/latest/1faea/lottie.json"
+    },
+    {
+      "codepoint": "1f61c",
+      "file": "1f61c.json",
+      "reaction": "😜",
+      "retrieved_at": "2026-10-30",
+      "sha256": "d5a841a9582c20955a0b781d81b7ddbf781a98cea3babf56e212b61d33749968",
+      "title": "Winking Face with Tongue",
+      "url": "https://fonts.gstatic.com/s/e/notoemoji/latest/1f61c/lottie.json"
     }
   ],
   "version": 1
